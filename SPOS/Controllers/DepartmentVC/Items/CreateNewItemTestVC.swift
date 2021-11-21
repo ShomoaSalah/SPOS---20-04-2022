@@ -58,7 +58,7 @@ class CreateNewItemTestVC: BaseVC {
     
     var colorsArray = [ColorsOB]()
     var modificationsTaxesArray = [ModificationsTaxesOB]()
-    var modificationsArray = [Modification]()
+    var modificationsArray = [ModificationOB]()
     var taxArray = [Tax]()
     var titleArray = ["Modifications", "Taxes"]
     var categorieArray = [CategorieOB]()
@@ -92,6 +92,7 @@ class CreateNewItemTestVC: BaseVC {
         if UserHelper.isLogin() {
             store_id = UserHelper.lodeUser()!.storeID ?? 0
             getModificationsAndTaxes(store_id: store_id)
+
         }
         
         
@@ -150,11 +151,11 @@ class CreateNewItemTestVC: BaseVC {
     func appendTwoItem()->[CategorieOB] {
         var categories = [CategorieOB]()
         
-        let cat1 = CategorieOB(name: "No Category", colorID: 0, userID: 0, id: 1, itemsCount: 0, kitchenPrintersExists: false, colorName: "", image: "", priceState: "", type: "", objectType: "")
+        let cat1 = CategorieOB(name: "No Category", colorID: 0, userID: 0, id: 1, itemsCount: 0, kitchenPrintersExists: false, colorName: "", image: "", priceState: "", type: "", objectType: "", showInterface: false)
         
         categories.append(cat1)
         
-        let cat2 = CategorieOB(name: "Create Category", colorID: 0, userID: 0, id: 0, itemsCount: 0, kitchenPrintersExists: false, colorName: "", image: "", priceState: "", type: "", objectType: "")
+        let cat2 = CategorieOB(name: "Create Category", colorID: 0, userID: 0, id: 0, itemsCount: 0, kitchenPrintersExists: false, colorName: "", image: "", priceState: "", type: "", objectType: "", showInterface: false)
         
         
         categories.append(cat2)
@@ -616,21 +617,23 @@ extension CreateNewItemTestVC {
         
         SVProgressHUD.show()
         
-        let requestUrl = APIConstant.getModificationsAndTaxes + "?store_id=\(store_id)"
+        //    //{{url}}/api/pos/items/get_colors_categories_modifications_and_taxes?item_id=76&store_id=33
+
+        let requestUrl = APIConstant.getModificationsAndTaxesNew + "?store_id=\(store_id)"
         print("requestUrl get Modifications & Taxes \(requestUrl)")
         
         API.startRequest(url: requestUrl, method: .get, parameters: nil, viewCon: self) { [self] status, responseObject in
             SVProgressHUD.dismiss()
+         
             if status {
                 do{
-                    
                     let object = try JSONDecoder().decode(ModificationsTaxesOB.self, from: responseObject?.data as! Data)
-
-                    modificationsArray = object.modifications ?? [Modification]()
+                    
+                    modificationsArray = object.modifications ?? [ModificationOB]()
                     taxArray = object.taxes ?? [Tax]()
                     
                     tableView.reloadData()
-
+                    
                     noDataView.isHidden = true
                 }catch{
                     print("ERROR 3 \(responseObject?.message ?? "")")
@@ -645,8 +648,6 @@ extension CreateNewItemTestVC {
             }
         }
     }
-    
-    
     
     func AddNewItem(name: String, category_id: Int, sold_by: String, price: String?, cost: String?, sku: String, bar_code: String?, date_expire: String, store_tracking: Int, in_stock: Int, color_id: Int?, image: UIImage, store_id: Int, modifications_id: [Int]?, taxes_id: [Int]?) {
         
@@ -718,7 +719,7 @@ extension CreateNewItemTestVC {
                 }
                 
                 else{
-                    print("ERROR 5 \(responseObject?.message ?? "")")
+                    print("ERROR 5 \(responesObject?.message ?? "")")
                     self.navigationController?.view.makeToast((responesObject?.message!)!)
                 }
                 

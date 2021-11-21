@@ -29,6 +29,9 @@ class UserOB: Codable {
     let isShiftMenu: Bool?
     let employeeName: String?
     let shiftID: Int?
+    let isDiningOption: Bool?
+    
+//    let isOpenTicket, isDiningOption, trackTimeState: Bool?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -53,16 +56,23 @@ class UserOB: Codable {
         case backOfficeURL = "back_office_url"
         case posID = "pos_id"
         case employeeName = "employee_name"
+//        case isOpenTicket = "is_open_ticket"
+        case isDiningOption = "is_dining_option"
+//        case trackTimeState = "track_time_state"
     }
 
+    //, isOpenTicket: Bool?,
+//,
+//trackTimeState: Bool?
     init(id: Int?, ownerID: Int?, storeID: Int?, name: String?, wallet: Int?, mobile: String?, countryID: Int?, email: String?, isCompleted: String?, agreementState: Bool?, pinCode: String?, backOffice: Int?, status: Bool?, token: String?, role: String?, nameOfStore: String?, countryName: String?, backOfficeURL: String?, posID: Int?, isScan: Int?, pinCodeState: Int?,
-         posName: String?, isShift: Bool?, isShiftMenu: Bool?, employeeName: String?, shiftID: Int?) {
+         posName: String?, isShift: Bool?, isShiftMenu: Bool?, employeeName: String?, shiftID: Int?, isDiningOption: Bool?) {
         self.id = id
         self.ownerID = ownerID
         self.posName = posName
         self.storeID = storeID
         self.name = name
         self.wallet = wallet
+        self.isDiningOption = isDiningOption
         self.mobile = mobile
         self.shiftID = shiftID
         self.pinCodeState = pinCodeState
@@ -83,5 +93,8 @@ class UserOB: Codable {
         self.isShift = isShift
         self.isShiftMenu = isShiftMenu
         self.employeeName = employeeName
+//        self.isOpenTicket = isOpenTicket
+//        self.isDiningOption = isDiningOption
+//        self.trackTimeState = trackTimeState
     }
 }

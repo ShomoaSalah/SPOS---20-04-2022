@@ -8,31 +8,30 @@
 import UIKit
 
 class ModificationsTVC: UITableViewCell {
-
+    
+    @IBOutlet weak var backgroundViewww: UIView!
     @IBOutlet weak var modificationTitleLbl: UILabel!
     @IBOutlet weak var modificationDescriptionLbl: UILabel!
     @IBOutlet weak var enableModificationSwitch: UISwitch!
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
-    
-    private var item: Modification! {
+    private var item: ModificationOB! {
         didSet{
             modificationTitleLbl.text = item.name
             modificationDescriptionLbl.text = item.optionsNameString
-            
         }
     }
-
-
-    func configure(data: Modification) {
+    
+    func configure(data: ModificationOB) {
         self.item = data
     }
+    
+    
 }

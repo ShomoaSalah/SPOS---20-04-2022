@@ -15,7 +15,7 @@ class CategorieOB: Codable {
     let colorName: String?
     let image: String?
     let priceState, type, objectType: String?
-
+    let showInterface: Bool?
     
     enum CodingKeys: String, CodingKey {
         case name
@@ -29,12 +29,14 @@ class CategorieOB: Codable {
         case priceState = "price_state"
         case type
         case objectType = "object_type"
+        case showInterface = "show_interface"
     }
 
-    init(name: String?, colorID: Int?, userID: Int?, id: Int?, itemsCount: Int?, kitchenPrintersExists: Bool?, colorName: String?, image: String?, priceState: String?, type: String?, objectType: String?) {
+    init(name: String?, colorID: Int?, userID: Int?, id: Int?, itemsCount: Int?, kitchenPrintersExists: Bool?, colorName: String?, image: String?, priceState: String?, type: String?, objectType: String?, showInterface: Bool?) {
         self.name = name
         self.colorID = colorID
         self.userID = userID
+        self.showInterface = showInterface
         self.id = id
         self.itemsCount = itemsCount
         self.kitchenPrintersExists = kitchenPrintersExists

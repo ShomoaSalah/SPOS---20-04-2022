@@ -1,16 +1,20 @@
 //
-//  HomeItemDetailsSectionTVC.swift
+//  SelectCountryTVC.swift
 //  SPOS
 //
-//  Created by شموع صلاح الدين on 10/3/21.
+//  Created by شموع صلاح الدين on 11/16/21.
 //
 
 import UIKit
+import DropDown
 
-class HomeItemDetailsSectionTVC: UITableViewCell {
+
+class SelectCountryTVC: DropDownCell {
+
+    @IBOutlet weak var selectedCountryNameLbl: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    
-    @IBOutlet weak var titleLbl: UILabel!
+    @IBOutlet weak var backgroundViewww: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -11,9 +11,9 @@ import SVProgressHUD
 import ActiveLabel
 
 class SignUpVC: UIViewController {
+    @IBOutlet weak var linkTextView: LinkTextView!
     
     
-    @IBOutlet weak var termsLbl: ActiveLabel!
     
     @IBOutlet weak var emailTF: HSUnderLineTextField!
     @IBOutlet weak var passwordTF: HSUnderLineTextField!
@@ -38,35 +38,27 @@ class SignUpVC: UIViewController {
         
         LoadingButton.startLoading(activityIndicator: loadingIndicator)
         
-//        let stringTerms = "انا اوافق على شروط الاستخدام وقرأت وأعترف بسياسة الخصوصية"
-//        let attributedString = NSMutableAttributedString(string: stringTerms)
-//        attributedString.addLink("https://....", linkColor: .red, text: "teeeeest")
-//        termsTV.attributedText = attributedString
-//
-//        
-//        
-//        let customType = ActiveType.custom(pattern: "\\swith\\b") //Regex that looks for "with"
-//        termsLbl.enabledTypes = [.url, customType]
-//        termsLbl.text = "انا اوافق على شروط الاستخدام وقرأت وأعترف بسياسة الخصوصية"
-////        termsLbl.customColor[customType] = UIColor.purple
-////        termsLbl.customSelectedColor[customType] = UIColor.green
-////        termsLbl.handle
-//        termsLbl.handleCustomTap(for: customType) { element in
-//            print("Custom type tapped: \(element)")
-//        }
+//        let tu = "Terms of Use"
+//        let pp = "Privacy Policy"
         
-//        termsLbl.cust
+        let tu = "شروط الاستخدام"
+        let pp = "سياسة الخصوصية"
         
-        termsLbl.customize { label in
-            label.text = "انا اوافق على شروط الاستخدام وقرأت وأعترف بسياسة الخصوصية"
-            label.textColor = .black 
-            label.URLColor = UIColor(red: 85.0/255, green: 238.0/255, blue: 151.0/255, alpha: 1)
-            label.handleURLTap {_ in 
-                
-                //self.alert("URL", message: $0.absoluteString)
-                print("handleURLTap UILabel")
-            }
+//        linkTextView.text = "Please read the Some Company \(tu) and \(pp)"
+        linkTextView.text = " أنا أوافق على  \(tu) وقرأت وأعترف \(pp) "
+        linkTextView.addLinks([
+            tu: "https://www.google.com.sa",
+            pp: "https://www.google.com.sa"
+        ])
+        linkTextView.onLinkTap = { url in
+            print("url: \(url)")
+            return true
         }
+        
+        
+
+        
+        
         getCountries()
     }
     
@@ -230,7 +222,11 @@ extension SignUpVC {
                     let object = try JSONDecoder().decode(UserOB.self, from: responesObject?.data as! Data)
                 
                     SplashAnimationVC.checkUserState(isCompleted: object.isCompleted ?? "", object: object, view: self)
-
+//                    let vc = UIStoryboard.init(name: "HomeSB", bundle: Bundle.main).instantiateViewController(withIdentifier: "CustomTabBar") as! CustomTabBar
+//                    UserHelper.saveUser(user: object)
+//                    print("Done")
+//                    vc.modalPresentationStyle = .fullScreen
+//                    self.present(vc, animated: true, completion: nil)
                     
                 }catch{
                     self.navigationController?.view.makeToast(error.localizedDescription)

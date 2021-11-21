@@ -9,19 +9,27 @@ import Foundation
 
 class HomeOB: Codable {
     
-    let count: Int?
+    let ticketID, count: Int?
     let charge: String?
+    
     let items: [ItemsOB]?
     let categories: [CategorieOB]?
     let discounts: [DiscountsOB]?
     
-    init(count: Int?, charge: String?, items: [ItemsOB]?, categories: [CategorieOB]?, discounts: [DiscountsOB]?) {
+    enum CodingKeys: String, CodingKey {
+        case ticketID = "ticket_id"
+        case count, charge, items, categories, discounts
+    }
+    
+    init(ticketID: Int?, count: Int?, charge: String?, items: [ItemsOB]?, categories: [CategorieOB]?, discounts: [DiscountsOB]?) {
+        self.ticketID = ticketID
         self.count = count
         self.charge = charge
         self.items = items
         self.categories = categories
         self.discounts = discounts
     }
+    
 }
 
 
@@ -32,7 +40,7 @@ class SearchHomeOB: Codable {
     let colorID: Int?
     let colorName, image: String?
     let priceState, type, objectType: String?
-
+    
     enum CodingKeys: String, CodingKey {
         case id, name
         case colorID = "color_id"
@@ -42,7 +50,7 @@ class SearchHomeOB: Codable {
         case type
         case objectType = "object_type"
     }
-
+    
     init(id: Int?, name: String?, colorID: Int?, colorName: String?, image: String?, priceState: String?, type: String?, objectType: String?) {
         self.id = id
         self.name = name

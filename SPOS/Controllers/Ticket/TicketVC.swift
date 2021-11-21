@@ -6,16 +6,25 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class TicketVC: BaseVC {
 
+    @IBOutlet weak var headerTV: UIView!
+    @IBOutlet weak var taxIncludedLbl: UILabel!
+    @IBOutlet weak var taxView: UIView!
+    @IBOutlet weak var discountView: UIView!
+    @IBOutlet weak var discountLbl: UILabel!
+    @IBOutlet weak var taxLbl: UILabel!
+    @IBOutlet weak var totalLbl: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var tableView: UITableView!
-    
     @IBOutlet weak var payBtn: UIButton!
-    
     @IBOutlet weak var ticketEmptyView: UIView!
     
+    var diningOptionArray = [DiningOptionOB]()
+    var storeID = 0
+    var ticketID = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +35,12 @@ class TicketVC: BaseVC {
         addRightButton()
         ticketEmptyView.isHidden = true 
         
-       
+       //showTicketDetails
+        if UserHelper.isLogin() {
+            storeID = UserHelper.lodeUser()!.storeID ?? 0
+            showTicketDetails(store_id: storeID, ticket_id: ticketID)
+        }
+        
     }
     
     
@@ -38,21 +52,19 @@ class TicketVC: BaseVC {
         
         let button1 = UIButton(frame: CGRect(x: 0,y: 5, width: 18, height: 30))
         button1.setImage(UIImage(named: "img-delete"), for: .normal)
-
-       button1.addTarget(self, action: #selector(didTapOnDeleteTicket), for: .touchUpInside)
-
-     
+        
+        button1.addTarget(self, action: #selector(didTapOnDeleteTicket), for: .touchUpInside)
         
         let button2 = UIButton(frame: CGRect(x: 26,y: 8, width: 24, height: 24))
         button2.setImage(UIImage(named: "ic-swap"), for: .normal)
         
         button2.addTarget(self, action: #selector(didTapOnAddNewClient), for: .touchUpInside)
-
+        
         
         let button3 = UIButton(frame: CGRect(x: 58,y: 8, width: 24, height: 24))
         button3.setImage(UIImage(named: "ic-Iconly-Bulk-Filter"), for: .normal)
         
-//        button3.addTarget(self, action: #selector(didTapOnSendReceipt), for: .touchUpInside)
+        //        button3.addTarget(self, action: #selector(didTapOnSendReceipt), for: .touchUpInside)
         
    
         viewFN.addSubview(button1)
@@ -129,19 +141,18 @@ extension TicketVC: UICollectionViewDataSource, UICollectionViewDelegate {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "TicketCVC", bundle: nil), forCellWithReuseIdentifier: "TicketCVC")
-
     }
 
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return  4
+        return  diningOptionArray.count
     }
 
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TicketCVC", for: indexPath) as! TicketCVC
-       // let item = imagesColor[indexPath.row]
-      
+        let item = diningOptionArray[indexPath.row]
+        cell.titleLbl.text = item.name ?? ""
         
         if indexPath.row == 0 {
             cell.isSelected = true
@@ -190,4 +201,107 @@ extension TicketVC: UICollectionViewDataSource, UICollectionViewDelegate {
     
 
 
+}
+
+//MARK: - API Request -
+
+extension TicketVC {
+    
+    func showTicketDetails(store_id: Int, ticket_id: Int) {
+        SVProgressHUD.show()
+     
+        
+        let requestUrl = APIConstant.showTicket + "?store_id=\(store_id)&ticket_id=\(ticket_id)"
+        print("requestUrl show Ticket \(requestUrl)")
+        
+        API.startRequest(url: requestUrl, method: .get, parameters: nil, viewCon: self) { [self] status, responseObject in
+            
+            if status {
+                
+              
+                do{
+                    let object = try JSONDecoder().decode(TicketDetailsOB.self, from: responseObject?.data as! Data)
+                    diningOptionArray = object.diningOptions ?? [DiningOptionOB]()
+                    
+                    totalLbl.text = object.total
+                    taxLbl.text = object.taxesValue
+                    
+                    
+                    if object.containsDiscounts! {
+                        discountView.isHidden = false
+                        discountLbl.text = object.discountsValue ?? ""
+                    }else {
+                        discountView.isHidden = true
+                    }
+                    
+                    
+                    if object.containsTaxes! {
+                        taxView.isHidden = false
+                        
+                        if object.taxIncluded! {
+                            taxLbl.text = ""
+                            taxIncludedLbl.isHidden = false
+                        }else {
+                            taxLbl.text = object.taxesValue ?? ""
+                            taxIncludedLbl.isHidden = true
+                        }
+                    }else {
+                        taxView.isHidden = true
+                    }
+                    
+                    
+                    collectionView.reloadData()
+                 
+                }catch{
+                    self.view.makeToast(responseObject?.message ?? "")
+                }
+                
+            }else {
+                self.view.makeToast(responseObject?.message ?? "")
+            }
+        }
+    }
+    
+    
+    func getProfile(pos_id: Int)  {
+        
+        let requestUrl = APIConstant.profile + "\(pos_id)"
+        print("requestUrl profile \(requestUrl)")
+        
+        SVProgressHUD.show()
+        
+        
+        API.startRequest(url: requestUrl, method: .get, parameters: nil, viewCon: self) { [self] (status, responesObject) in
+            
+            
+            if status {
+                
+                do{
+                    
+                    let object = try JSONDecoder().decode(UserOB.self, from: responesObject?.data as! Data)
+                    
+                    if object.isDiningOption! {
+                        headerTV.isHidden = false
+                        tableView.layoutTableHeaderView()
+                    }else {
+                        headerTV.isHidden = true
+                        tableView.layoutTableHeaderView()
+                    }
+                    
+                    
+                }catch{
+                    self.navigationController?.view.makeToast(error.localizedDescription)
+                    print(error.localizedDescription)
+                }
+                
+                
+            }
+            
+            else{
+                self.navigationController?.view.makeToast((responesObject?.message!)!)
+            }
+            
+        }
+    }
+    
 }

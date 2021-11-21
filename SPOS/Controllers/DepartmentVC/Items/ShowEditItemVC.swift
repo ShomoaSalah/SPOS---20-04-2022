@@ -11,7 +11,7 @@ import DropDown
 
 
 class ShowEditItemVC: BaseVC {
-
+    
     @IBOutlet weak var noDataView: UIView!
     @IBOutlet weak var addImageContainerView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -64,9 +64,12 @@ class ShowEditItemVC: BaseVC {
     
     var colorsArray = [ColorsOB]()
     var modificationsTaxesArray = [ModificationsTaxesOB]()
-    var modificationsArray = [Modification]()
+    var modificationsArray = [ModificationOB]()
     var taxArray = [Tax]()
-    var titleArray = ["Modifications", "Taxes"]
+    
+    var titleArray = [String]()
+    //= ["Modifications", "Taxes"]
+    
     var categorieArray = [CategorieOB]()
     var imagePicker: ImagePickerCamera!
     
@@ -77,6 +80,7 @@ class ShowEditItemVC: BaseVC {
         bottom: 0,
         right: 8)
     var store_id = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("colorSelectedID \(colorSelectedID)")
@@ -88,26 +92,25 @@ class ShowEditItemVC: BaseVC {
             storeID = UserHelper.lodeUser()!.storeID ?? 0
             
             showAllItem(item_id: selectedItemID, store_id: storeID)
-//            showAllItem(item_id: selectedItemID, store_id: 33)
+            //            showAllItem(item_id: selectedItemID, store_id: 33)
         }
         
         selectSoldBy = "each"
         initTV()
-        getCategoriesFromServer()
         createDatePicker()
         initCV()
-        getColors()
+
         
         if UserHelper.isLogin() {
             store_id = UserHelper.lodeUser()!.storeID ?? 0
-            getModificationsAndTaxes(item_id: selectedItemID, store_id: store_id)
+            getModificationsAndTaxes(store_id: store_id, item_id: selectedItemID)
         }
         
         
         LoadingButton.startLoading(activityIndicator: loadingIndicator)
         
-       addImageContainerView.isHidden = true
-       collectionContainerView.isHidden = false
+        addImageContainerView.isHidden = true
+        collectionContainerView.isHidden = false
         
         if storeTrackingSwitch.isOn {
             inStockTF.isEnabled = true
@@ -116,7 +119,7 @@ class ShowEditItemVC: BaseVC {
         }
         
         storeTrackingSwitch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
-
+        
     }
     
     @objc func switchChanged(mySwitch: UISwitch) {
@@ -130,34 +133,38 @@ class ShowEditItemVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         addNotificationObserver(.reloadCategories, #selector(reloadCategories))
-
+        
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-//        addNotificationObserver(.reloadCategories, #selector(reloadCategories))
+        //        addNotificationObserver(.reloadCategories, #selector(reloadCategories))
     }
     
     @objc func reloadCategories() {
         print("reloadCategories")
-        getCategoriesFromServer()
+        if UserHelper.isLogin() {
+            store_id = UserHelper.lodeUser()!.storeID ?? 0
+            getModificationsAndTaxes(store_id: store_id, item_id: selectedItemID)
+        }
+        
         dropDownCategory.reloadAllComponents()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(true)
-//        removeNotificationObserver(.reloadCategories)
+        //        super.viewWillDisappear(true)
+        //        removeNotificationObserver(.reloadCategories)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-//        super.viewDidDisappear(true)
-//        removeNotificationObserver(.reloadCategories)
+        //        super.viewDidDisappear(true)
+        //        removeNotificationObserver(.reloadCategories)
     }
     
     
     func appendTwoItem()->[CategorieOB] {
         var categories = [CategorieOB]()
         
-        let cat1 = CategorieOB(name: "No Category", colorID: 0, userID: 0, id: 1, itemsCount: 0, kitchenPrintersExists: false, colorName: "", image: "", priceState: "", type: "", objectType: "")
+        let cat1 = CategorieOB(name: "No Category", colorID: 0, userID: 0, id: 1, itemsCount: 0, kitchenPrintersExists: false, colorName: "", image: "", priceState: "", type: "", objectType: "", showInterface: false)
         
         categories.append(cat1)
         
@@ -166,7 +173,7 @@ class ShowEditItemVC: BaseVC {
         
         categories.append(cat1)
         
-        let cat2 = CategorieOB(name: "Create Category", colorID: 0, userID: 0, id: 0, itemsCount: 0, kitchenPrintersExists: false, colorName: "", image: "", priceState: "", type: "", objectType: "")
+        let cat2 = CategorieOB(name: "Create Category", colorID: 0, userID: 0, id: 0, itemsCount: 0, kitchenPrintersExists: false, colorName: "", image: "", priceState: "", type: "", objectType: "", showInterface: false)
         
         
         categories.append(cat2)
@@ -199,14 +206,14 @@ class ShowEditItemVC: BaseVC {
             // Fallback on earlier versions
         }
     }
-     
+    
     @objc func donePressed(){
         
         //Formatter
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .none
-      
+        
         let selectedDate = datePicker.date
         expireDateTF.text = selectedDate.getYYYYMMDD()
         
@@ -276,13 +283,13 @@ class ShowEditItemVC: BaseVC {
         
     }
     
-
+    
     @IBAction func selectCategory(_ sender: UIButton) {
         openCategoryMenu()
     }
     
     
-
+    
     func openCategoryMenu(){
         
         dropDownCategory.layer.cornerRadius = 10
@@ -325,7 +332,7 @@ class ShowEditItemVC: BaseVC {
     @IBAction func submitUpdating(_ sender: UIButton) {
         
         
-//        UpdateNewItem
+        //        UpdateNewItem
         
         var inStockInt = 0
         if storeTracking == 1 {
@@ -335,7 +342,7 @@ class ShowEditItemVC: BaseVC {
         }else {
             inStockInt = 0
         }
-       
+        
         UpdateNewItem(item_id: selectedItemID, name:  (nameTF.text ?? itemObject?.name)!, category_id: (categorySelectedIndex ?? itemObject?.categoryID)!, sold_by: (selectSoldBy ?? itemObject?.soldBy)!, price: priceTF.text ?? itemObject?.priceState, cost: amountTF.text ?? itemObject?.cost?.description, sku: (skuTF.text ?? itemObject?.sku)!, bar_code: barcodeTF.text ?? itemObject?.barCode, date_expire: (expireDateTF.text ?? itemObject?.dateExpire)!, store_tracking: (storeTracking ?? itemObject?.storeTracking)!, in_stock: (inStockInt ?? itemObject?.inStock)!, color_id: colorSelectedID ?? itemObject?.colorID, image: (itemImage.image ?? itemObject?.image?.toImage()) ?? UIImage(), store_id: storeID, modifications_id: modificationsID, taxes_id: taxesID)
     }
     
@@ -376,7 +383,7 @@ extension ShowEditItemVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let cellHeader = tableView.dequeueReusableCell(withIdentifier: "AddItemSectionTVC") as! AddItemSectionTVC
-
+        
         let item = titleArray[section]
         cellHeader.titleLbl.text = item
         
@@ -401,7 +408,7 @@ extension ShowEditItemVC: UITableViewDataSource, UITableViewDelegate {
             cell.enableModificationSwitch.isOn = true
             cell.enableModificationSwitch.tag = indexPath.row
             cell.enableModificationSwitch.addTarget(self, action: #selector(enableModification), for: .valueChanged)
-
+            
             return cell
             
         } else {
@@ -410,14 +417,14 @@ extension ShowEditItemVC: UITableViewDataSource, UITableViewDelegate {
             cell.selectionStyle = .none
             let item = taxArray[indexPath.row]
             cell.configure(data: item)
-
+            
             if item.isChecked ?? true {
                 taxesID.append(item.id ?? 0)
             }
             
             cell.enableTaxSwitch.tag = indexPath.row
             cell.enableTaxSwitch.addTarget(self, action: #selector(enableTax), for: .valueChanged)
-           
+            
             return cell
         }
         
@@ -434,7 +441,7 @@ extension ShowEditItemVC: UITableViewDataSource, UITableViewDelegate {
         }
         print("modificationsID \(modificationsID)")
     }
-     
+    
     @objc func enableTax(_ sender: UISwitch){
         let item = taxArray[sender.tag]
         
@@ -454,14 +461,14 @@ extension ShowEditItemVC: UITableViewDataSource, UITableViewDelegate {
             
             let cell = tableView.cellForRow(at: indexPath) as! ModificationsTVC
             let item = modificationsArray[indexPath.row]
-        
-//            modificationsID.append(<#T##newElement: Int##Int#>)
+            
+            //            modificationsID.append(<#T##newElement: Int##Int#>)
             
         } else {
             
             let cell = tableView.cellForRow(at: indexPath) as! TaxesTVC
             let item = taxArray[indexPath.row]
-
+            
         }
         
     }
@@ -530,17 +537,17 @@ extension ShowEditItemVC: UICollectionViewDelegate, UICollectionViewDataSource {
 
 
 extension ShowEditItemVC: UICollectionViewDelegateFlowLayout {
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
         let availableWidth = collectionView.frame.width - paddingSpace
         let widthPerItem = availableWidth / itemsPerRow
-
+        
         print("widthPerItem \(widthPerItem)")
-
+        
         return CGSize(width: widthPerItem, height: 77)
     }
-
+    
 }
 
 
@@ -549,66 +556,12 @@ extension ShowEditItemVC: UICollectionViewDelegateFlowLayout {
 
 extension ShowEditItemVC {
     
-    
-    func getCategoriesFromServer() {
-        SVProgressHUD.show()
-        
-        API.getCategoriesList { [self] categories, status, msg in
-            SVProgressHUD.dismiss()
-            if status {
-                
-                categorieArray.removeAll()
-                categorieArray = self.appendTwoItem()
-                categorieArray += categories
-                
-                for category in categorieArray {
-                    
-                    categoryArrayString.append(category.name ?? "")
-                    categoryDics[category.name!] = category.id!
-                    categorySelectedIndex = category.id!
-                    print("categorieArray 1 \(categoryArrayString) ")
-                    print("categorieArray 2 \(categoryDics) ")
-                }
-                
-               
-                dropDownCategory.dataSource = categoryArrayString
-                
-                
-                
-                
-                tableView.reloadData()
-            }else {
-                self.navigationController?.view.makeToast(msg)
-            }
-            
-        }
-    }
-    
-    func getColors() {
-        
-        API.getColorsList { [self]  colors, status, msg in
-            
-            LoadingButton.stopLoading(activityIndicator: loadingIndicator)
-            loadingIndicator.isHidden = true
-            
-            if status {
-                
-                colorsArray = colors
-                collectionView.reloadData()
-                
-            } else {
-                self.navigationController?.view.makeToast(msg)
-            }
-        }
-        
-    }
-    
-    func getModificationsAndTaxes(item_id: Int, store_id: Int)  {
+    func getModificationsAndTaxes(store_id: Int, item_id: Int)  {
         
         SVProgressHUD.show()
-        
-        let requestUrl = APIConstant.getModificationsAndTaxes + "?item_id=\(item_id)&store_id=\(store_id)"
-        print("requestUrl get Modifications & Taxes By item ID \(requestUrl)")
+       
+        let requestUrl = APIConstant.getModificationsAndTaxesNew + "?item_id=\(item_id)&store_id=\(store_id)"
+        print("requestUrl get Modifications & Taxes \(requestUrl)")
         
         API.startRequest(url: requestUrl, method: .get, parameters: nil, viewCon: self) { [self] status, responseObject in
             
@@ -616,13 +569,51 @@ extension ShowEditItemVC {
                 do{
                     
                     let object = try JSONDecoder().decode(ModificationsTaxesOB.self, from: responseObject?.data as! Data)
-
-                    modificationsArray = object.modifications ?? [Modification]()
+                    
+                    modificationsArray = object.modifications ?? [ModificationOB]()
                     taxArray = object.taxes ?? [Tax]()
                     
-                   
+                    //var titleArray = ["Modifications", "Taxes"]
+                    
+                    if modificationsArray.count != 0 {
+                        titleArray.insert("Modifications", at: 0)
+                    }else {
+                        titleArray.insert("Taxes", at: 0)
+                    }
+                    
+                    
+                    if taxArray.count != 0 {
+                        titleArray.insert("Taxes", at: 1)
+                    }else {
+//                        titleArray.insert("Modifications", at: 0)
+                    }
+                    
+                 
+                    
+                    colorsArray = object.colors ?? [ColorsOB]()
+                    collectionView.reloadData()
+                    
+                    print("colorsArray \(colorsArray.count)")
+                    
+                    LoadingButton.stopLoading(activityIndicator: loadingIndicator)
+                    loadingIndicator.isHidden = true
+                    
+                    categorieArray.removeAll()
+                    categorieArray = self.appendTwoItem()
+                    categorieArray += object.categories ?? [CategorieOB]()
+                    
+                    for category in categorieArray {
+                        categoryArrayString.append(category.name ?? "")
+                        categoryDics[category.name!] = category.id!
+                        categorySelectedIndex = category.id!
+                        print("categorieArray 1 \(categoryArrayString) ")
+                        print("categorieArray 2 \(categoryDics) ")
+                    }
+                    dropDownCategory.dataSource = categoryArrayString
                     tableView.reloadData()
-
+                    
+                    
+                    
                 }catch{
                     self.view.makeToast(responseObject?.message ?? "")
                 }
@@ -635,7 +626,7 @@ extension ShowEditItemVC {
     
     func showAllItem(item_id: Int, store_id: Int) {
         
-
+        
         let urlRequest = APIConstant.showItem + "\(item_id)&store_id=\(store_id)"
         print("urlRequest show Item \(urlRequest)")
         
@@ -696,7 +687,7 @@ extension ShowEditItemVC {
                         selectImageOrColor = "image"
                         
                         itemImage.sd_setImage(with: URL(string: itemObject?.image ?? ""), placeholderImage: UIImage(named: "img-logo4"))
-
+                        
                         imageView.setBorder(width: 0.5, color: "0CA7EE".cgColor)
                         imageTitleLbl.textColor = "0CA7EE".color
                         colorView.setBorder(width: 0.5, color: "C3C5CE".cgColor)
@@ -751,7 +742,7 @@ extension ShowEditItemVC {
         params["date_expire"] = date_expire
         params["store_tracking"] = store_tracking
         params["in_stock"] = in_stock
-       
+        
         params["store_id"] = store_id
         
         if modifications_id!.count != 0 {
@@ -759,30 +750,30 @@ extension ShowEditItemVC {
                 params["modifications_id[\(index)]"] = modifications_id![index]
             }
         }
-       
+        
         if taxes_id!.count != 0 {
             for index in 0...taxes_id!.count-1 {
                 params["taxes_id[\(index)]"] = taxes_id![index]
             }
         }
-       
+        
         
         
         print("PARAMS \(params)")
         SVProgressHUD.show()
-     
+        
         var headers = [String:String]()
         
         if UserHelper.isLogin(){
             
             let token = (UserHelper.lodeUser()?.token)!
             headers["Authorization"] = "Bearer \(token)"
-//            headers["Authorization"] = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNWQ3ZjNmMjZjN2RjMjVkYTZmZGUwMzYzZGUwYWE2YmYxNjQyNzdkYzQ4NDZlODcxMjlhMzRlMmU0OGMwZDkzOGZjN2U5NWQ2OTdkZTNiNDkiLCJpYXQiOjE2MzUxNDU0NDEuMDE2ODA5OTQwMzM4MTM0NzY1NjI1LCJuYmYiOjE2MzUxNDU0NDEuMDE2ODE0OTQ3MTI4Mjk1ODk4NDM3NSwiZXhwIjoxNjY2NjgxNDQxLjAwNjExNTkxMzM5MTExMzI4MTI1LCJzdWIiOiI0NCIsInNjb3BlcyI6W119.YCplWOaICZZQx6GTTwzGVGVotVVnnSVtLvVQNPL7uCGo_jJFwhxDZuboODj7myV4aAu9SstvoJ7GvUBnfJQi8K2hOSYg-OC1XPXpsVdFFz-PG8AOHEoPR6cIEDH4UhrLtNZqPhC3acvK4tfNVeUtEA8FZdF5dExC8NjCRt9E9rjHDYyuPSHmovHd3pi5Trr1OSCketMsLNCoxMLBt9M0BZTkxBX1n4J2sqXrUnST05FD9qtAUUwdcsumMniuiyeiLLYbD5CUGrelY3VYzzstFeqQngJh-ogJOMA4ipzkQjFh8r_sEmf9aFLfSGkqPBwXk1t4WZAwK0kNN-7BEkzBehYZPJq2OgM5F6W6tcEXQXkyAZ11U57U5JtEBqeiZ-G0A0JPawV4ZHUqbjYK2uX1cY7qfE3DnmJCMqdCZUGfjy0rkau19kyIAX4XYgLD1bp_G3B45II1sviGW2KEuLFOxOqOWvWWkMppHp-Ryof7JhVF5CMsfY5e_NxnS6Ee_w1CdA5fzF_K6q66F8Gk4mf7Y_h9_CKbpzFjFKJr3EoClMbaUrXRhC3EBCOgZmJFPzoq5MtMH8cyIP1EdjTCw3tpg3uxSRh6zPXIV2_DajQ2hutCBfpygOKaeUStB4RaC-XjwUknAM4znIycZh7asYJfEt1N3qycdfm9KsnmhuqlfGY"
+            //            headers["Authorization"] = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNWQ3ZjNmMjZjN2RjMjVkYTZmZGUwMzYzZGUwYWE2YmYxNjQyNzdkYzQ4NDZlODcxMjlhMzRlMmU0OGMwZDkzOGZjN2U5NWQ2OTdkZTNiNDkiLCJpYXQiOjE2MzUxNDU0NDEuMDE2ODA5OTQwMzM4MTM0NzY1NjI1LCJuYmYiOjE2MzUxNDU0NDEuMDE2ODE0OTQ3MTI4Mjk1ODk4NDM3NSwiZXhwIjoxNjY2NjgxNDQxLjAwNjExNTkxMzM5MTExMzI4MTI1LCJzdWIiOiI0NCIsInNjb3BlcyI6W119.YCplWOaICZZQx6GTTwzGVGVotVVnnSVtLvVQNPL7uCGo_jJFwhxDZuboODj7myV4aAu9SstvoJ7GvUBnfJQi8K2hOSYg-OC1XPXpsVdFFz-PG8AOHEoPR6cIEDH4UhrLtNZqPhC3acvK4tfNVeUtEA8FZdF5dExC8NjCRt9E9rjHDYyuPSHmovHd3pi5Trr1OSCketMsLNCoxMLBt9M0BZTkxBX1n4J2sqXrUnST05FD9qtAUUwdcsumMniuiyeiLLYbD5CUGrelY3VYzzstFeqQngJh-ogJOMA4ipzkQjFh8r_sEmf9aFLfSGkqPBwXk1t4WZAwK0kNN-7BEkzBehYZPJq2OgM5F6W6tcEXQXkyAZ11U57U5JtEBqeiZ-G0A0JPawV4ZHUqbjYK2uX1cY7qfE3DnmJCMqdCZUGfjy0rkau19kyIAX4XYgLD1bp_G3B45II1sviGW2KEuLFOxOqOWvWWkMppHp-Ryof7JhVF5CMsfY5e_NxnS6Ee_w1CdA5fzF_K6q66F8Gk4mf7Y_h9_CKbpzFjFKJr3EoClMbaUrXRhC3EBCOgZmJFPzoq5MtMH8cyIP1EdjTCw3tpg3uxSRh6zPXIV2_DajQ2hutCBfpygOKaeUStB4RaC-XjwUknAM4znIycZh7asYJfEt1N3qycdfm9KsnmhuqlfGY"
             print("Headers: ", headers)
             
         }
         
-      
+        
         if itemImage.image != nil {
             
             API.submitAddItem(url: urlRequest, params, auth: headers, "image", image, viewCon: self) { [self] (status, responesObject) in
@@ -800,7 +791,7 @@ extension ShowEditItemVC {
                 else{
                     
                     print("ERROR \(responesObject?.errors?[0])")
-//                    self.view.makeToast(responesObject!.errors[0])
+                    //                    self.view.makeToast(responesObject!.errors[0])
                 }
                 
                 
@@ -863,26 +854,17 @@ extension ShowEditItemVC {
 //MARK: - Using Camera & PhotoAlbum
 
 extension ShowEditItemVC: ImagePickerDelegate {
+    
     func didSelect(video: URL?) {
-        //
     }
     
-  
-    
-   
-    
-    
     func didSelect(image: UIImage?) {
-        
         if image != nil {
             imageSelected = image
             itemImage.image = image
         }else {
             return
         }
-        
-        
-        
     }
     
     

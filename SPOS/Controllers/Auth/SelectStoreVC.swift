@@ -163,17 +163,19 @@ extension SelectStoreVC {
                     if UserHelper.lodeUser()?.token == "" {
                         UserHelper.saveUser(user: object)
                     }
+//                    print
                     
                     SplashAnimationVC.checkUserState(isCompleted: object.isCompleted ?? "", object: object, view: self)
 
                     
                 }catch{
                     self.navigationController?.view.makeToast(error.localizedDescription)
-                    print(error.localizedDescription)
+                    print("ERROR", error.localizedDescription)
                 }
             }
             
             else{
+                print("ERROR 2", (responesObject?.message!)!)
                 self.navigationController?.view.makeToast((responesObject?.message!)!)
             }
             

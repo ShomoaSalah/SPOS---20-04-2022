@@ -14,7 +14,8 @@ extension Notification.Name {
     static let reloadCategoriesInHome = Notification.Name("reloadCategoriesInHome")
     static let reloadDiscounts = Notification.Name("reloadDiscounts")
     static let reloadItems = Notification.Name("reloadItems")
-   
+    static let reloadCustomers = Notification.Name("reloadCustomers")
+    static let setBadgeValue = Notification.Name("setBadgeValue")
     
     static let openPinCodeVC = Notification.Name("openPinCodeVC")
     

@@ -23,6 +23,7 @@ class ItemsOB: Codable {
     let categoryName: String?
     let inStock: Int?
     let isChecked: Bool?
+    let showInterface: Bool?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -37,18 +38,20 @@ class ItemsOB: Codable {
         case barCode = "bar_code"
         case colorID = "color_id"
         case image
+        case showInterface = "show_interface"
         case priceState = "price_state"
         case colorName = "color_name"
         case categoryName = "category_name"
         case inStock = "in_stock"
     }
 
-    init(id: Int?, categoryID: Int?, userID: Int?, name: String?, storeTracking: Int?, dateExpire: String?, soldBy: String?, cost: Int?, sku: String?, barCode: String?, colorID: Int?, image: String?, priceState: String?, colorName: String?, categoryName: String?, inStock: Int?, isChecked: Bool?) {
+    init(id: Int?, categoryID: Int?, userID: Int?, name: String?, storeTracking: Int?, dateExpire: String?, soldBy: String?, cost: Int?, sku: String?, barCode: String?, colorID: Int?, image: String?, priceState: String?, colorName: String?, categoryName: String?, inStock: Int?, isChecked: Bool?, showInterface: Bool?) {
         self.id = id
         self.isChecked = isChecked
         self.categoryID = categoryID
         self.userID = userID
         self.name = name
+        self.showInterface = showInterface
         self.storeTracking = storeTracking
         self.dateExpire = dateExpire
         self.soldBy = soldBy

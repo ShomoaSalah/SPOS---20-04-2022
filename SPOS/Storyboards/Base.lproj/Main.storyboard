@@ -1240,30 +1240,23 @@
                                                                     <action selector="tick:" destination="zlF-SO-7ve" eventType="touchUpInside" id="oTK-Ja-Ixe"/>
                                                                 </connections>
                                                             </button>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="per-x6-hiV" customClass="ActiveLabel" customModule="ActiveLabel">
-                                                                <rect key="frame" x="40" y="8" width="316" height="14"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="color" keyPath="URLColor">
-                                                                        <color key="value" name="#0386e8"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="color" keyPath="URLSelectedColor">
-                                                                        <color key="value" name="#0ca7ee"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                </userDefinedRuntimeAttributes>
-                                                            </label>
+                                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="88L-8I-HAY" customClass="LinkTextView" customModule="SPOS" customModuleProvider="target">
+                                                                <rect key="frame" x="38" y="0.0" width="320" height="40"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <color key="textColor" systemColor="labelColor"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                            </textView>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstItem="v4s-Po-hLh" firstAttribute="leading" secondItem="K3y-Kj-79l" secondAttribute="leading" id="4b5-p3-bwq"/>
-                                                            <constraint firstItem="per-x6-hiV" firstAttribute="top" secondItem="K3y-Kj-79l" secondAttribute="top" constant="8" id="Ace-xV-pNS"/>
+                                                            <constraint firstItem="88L-8I-HAY" firstAttribute="leading" secondItem="v4s-Po-hLh" secondAttribute="trailing" constant="8" id="GoP-ms-mUE"/>
                                                             <constraint firstAttribute="height" constant="40" id="Hhl-10-ddP"/>
                                                             <constraint firstItem="v4s-Po-hLh" firstAttribute="top" secondItem="K3y-Kj-79l" secondAttribute="top" id="MA2-ZD-ayr"/>
-                                                            <constraint firstAttribute="trailing" secondItem="per-x6-hiV" secondAttribute="trailing" constant="10" id="Wqz-v4-Qg1"/>
-                                                            <constraint firstItem="per-x6-hiV" firstAttribute="leading" secondItem="v4s-Po-hLh" secondAttribute="trailing" constant="10" id="dzQ-BZ-ZLa"/>
-                                                            <constraint firstItem="per-x6-hiV" firstAttribute="centerY" secondItem="v4s-Po-hLh" secondAttribute="centerY" id="t2c-6D-n4r"/>
+                                                            <constraint firstAttribute="bottom" secondItem="88L-8I-HAY" secondAttribute="bottom" id="NJt-sB-62y"/>
+                                                            <constraint firstItem="88L-8I-HAY" firstAttribute="top" secondItem="K3y-Kj-79l" secondAttribute="top" id="oFs-4P-jsK"/>
+                                                            <constraint firstAttribute="trailing" secondItem="88L-8I-HAY" secondAttribute="trailing" constant="8" id="vg1-ar-0Wh"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aoz-81-13E">
@@ -1380,9 +1373,9 @@
                         <outlet property="countrySelectedLbl" destination="QmK-4L-pQq" id="peI-2M-8B9"/>
                         <outlet property="countryView" destination="caH-Bf-MOb" id="ipT-ro-use"/>
                         <outlet property="emailTF" destination="Vqh-j2-P23" id="WCz-P7-8c4"/>
+                        <outlet property="linkTextView" destination="88L-8I-HAY" id="9kt-JD-MTJ"/>
                         <outlet property="loadingIndicator" destination="8Wv-uX-0Um" id="mfL-oL-UR8"/>
                         <outlet property="passwordTF" destination="8kD-BS-NKM" id="hnx-zh-OgQ"/>
-                        <outlet property="termsLbl" destination="per-x6-hiV" id="XIZ-2d-6Zd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RHj-h2-Whi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

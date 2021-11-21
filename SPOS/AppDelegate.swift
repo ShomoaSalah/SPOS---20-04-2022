@@ -57,23 +57,80 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func removeBottomLineFromNavigation() {
-        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
-        UINavigationBar.appearance().shadowImage = UIImage()
+        
+        if #available(iOS 15, *) {
+            let appearance = UINavigationBarAppearance()
+//            appearance.configureWithOpaqueBackground()
+            
+            appearance.configureWithDefaultBackground()
+            appearance.backgroundImage = UIImage()
+            appearance.shadowImage = UIImage()
+        
+            UINavigationBar.appearance().setBackgroundImage(appearance.backgroundImage, for: .default)
+            UINavigationBar.appearance().shadowImage = appearance.shadowImage
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+            
+        } else {
+            UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
+            UINavigationBar.appearance().shadowImage = UIImage()
+        }
+    
     }
     
+    
+    /*
+     let app = UINavigationBarAppearance()
+     app.configureWithOpaque()
+     app.backgroundColor = UIColor.red
+     navigationBar.standardAppearance = app
+     navigationBar.scrollEdgeAppearance = navigationBar.standardAppearance
+     */
     func setFontTypeUINavigationController() {
         
-        let attrs = [
-            NSAttributedString.Key.foregroundColor: "202124".color,
-            NSAttributedString.Key.font: UIFont(name: "JFFlat-Regular", size: 12)!
-        ]
-        
-        UINavigationBar.appearance().titleTextAttributes = attrs
+        if #available(iOS 15, *) {
+            
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            //        appearance.backgroundColor = .white
+            appearance.backgroundColor = .white //"202124".color
+            appearance.titleTextAttributes = [.font: UIFont(name: "JFFlat-Regular", size: 12)!,
+                                              .foregroundColor: "202124".color]
+            
+            UINavigationBar.appearance().tintColor = .black
+            UINavigationBar.appearance().backgroundColor = .white
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+            
+        } else {
+            
+            let attrs = [
+                NSAttributedString.Key.foregroundColor: "202124".color,
+                NSAttributedString.Key.font: UIFont(name: "JFFlat-Regular", size: 12)!
+            ]
+            
+            UINavigationBar.appearance().titleTextAttributes = attrs
+        }
     }
     
+    
+    
     func removeTabBarTopLine() {
-        UITabBar.appearance().shadowImage = UIImage()
-        UITabBar.appearance().backgroundImage = UIImage()
+        if #available(iOS 15.0, *) {
+            
+            let appearance = UITabBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.shadowImage = UIImage()
+//            appearance.backgroundImage = UIImage()
+            
+            UITabBar.appearance().standardAppearance = appearance
+            UITabBar.appearance().scrollEdgeAppearance = UITabBar().standardAppearance
+            
+        }else {
+            UITabBar.appearance().shadowImage = UIImage()
+            UITabBar.appearance().backgroundImage = UIImage()
+        }
+       
     }
     
     func setImageForBackArrow() {

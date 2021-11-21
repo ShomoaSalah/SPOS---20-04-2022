@@ -8,32 +8,47 @@
 import UIKit
 
 
-class CustomTextView: UITextView {
+class LinkTextView: UITextView, UITextViewDelegate {
     
-    private let linksAttributes = [NSAttributedString.Key.link]
+    typealias Links = [String: String]
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        let tapGest = UITapGestureRecognizer(target: self, action: #selector(self.onTapAction))
-        self.addGestureRecognizer(tapGest)
+    typealias OnLinkTap = (URL) -> Bool
+    
+    var onLinkTap: OnLinkTap?
+    
+    override init(frame: CGRect, textContainer: NSTextContainer?) {
+        super.init(frame: frame, textContainer: textContainer)
+        isEditable = false
+        isSelectable = true
+        isScrollEnabled = false //to have own size and behave like a label
+        delegate = self
     }
     
-    @objc private func onTapAction(_ tapGest: UITapGestureRecognizer) {
-        let location = tapGest.location(in: self)
-        let charIndex = self.layoutManager.characterIndex(for: location, in: self.textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    func addLinks(_ links: Links) {
+        guard attributedText.length > 0  else {
+            return
+        }
+        let mText = NSMutableAttributedString(attributedString: attributedText)
         
-        if charIndex < self.textStorage.length {
-            var range = NSMakeRange(0, 0)
-            
-            for linkAttribute in linksAttributes {
-                if let link = self.attributedText.attribute(linkAttribute, at: charIndex, effectiveRange: &range) as? String {
-                    guard let url = URL(string: link) else { return }
-                    _ = self.delegate?.textView?(self, shouldInteractWith: url, in: range, interaction: .invokeDefaultAction)
-                }
+        for (linkText, urlString) in links {
+            if linkText.count > 0 {
+                let linkRange = mText.mutableString.range(of: linkText)
+                mText.addAttribute(.link, value: urlString, range: linkRange)
             }
         }
+        attributedText = mText
     }
     
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
+        return onLinkTap?(URL) ?? true
+    }
     
+    // to disable text selection
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        textView.selectedTextRange = nil
+    }
 }

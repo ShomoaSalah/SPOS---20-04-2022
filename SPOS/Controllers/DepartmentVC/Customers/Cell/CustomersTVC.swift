@@ -25,5 +25,19 @@ class CustomersTVC: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    
+    private var item: CustomersOB! {
+        didSet{
+            customerNameLbl.text = item.name
+            customerContactsLbl.text = item.contacts
+        }
+    }
+
+
+    func configure(data: CustomersOB) {
+        self.item = data
+    }
+    
 
 }

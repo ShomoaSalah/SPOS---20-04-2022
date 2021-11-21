@@ -25,19 +25,54 @@ class CustomersVC: BaseVC {
         initTV()
         self.title = "العملاء"
         
+        showAllCustomers(current_page: currentPagee)
         tableView.refreshControl = refresher
         refresher.addTarget(self, action: #selector(refreshData), for: .valueChanged)
-        
-        
-        
+        searchView.txtSearch.placeholder = "البحث عن عميل"
+        searchView.txtSearch.addTarget(self, action: #selector(searchInCustomers), for: .editingChanged)
+ 
     }
+    
+    
+    @objc func searchInCustomers(){
+        
+        submitSearchCustomerList(name: searchView.txtSearch.text ?? "", current_page: currentPagee)
+        if searchView.txtSearch.text == "" {
+            showAllCustomers(current_page: currentPagee)
+        }
+    }
+    
     
     
     @objc func refreshData(){
-        
-      
+        showAllCustomers(current_page: currentPagee)
     }
     
+    private func createSpinnerFooter() -> UIView {
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 100))
+        let spinner = UIActivityIndicatorView()
+        spinner.center = footerView.center
+        footerView.addSubview(spinner)
+        spinner.startAnimating()
+        
+        return footerView
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let scrollViewHeight = scrollView.frame.size.height
+        let scrollContentSizeHeight = scrollView.contentSize.height
+        let scrollOffset = scrollView.contentOffset.y
+        
+        if ((scrollOffset + scrollViewHeight) >= (scrollContentSizeHeight)){
+            print(currentPagee,lastPagee)
+            if currentPagee < lastPagee{
+                currentPagee += 1
+                self.tableView.tableFooterView = createSpinnerFooter()
+                showAllCustomers(current_page: currentPagee)
+                tableView.scrollToBottom()
+            }
+        }
+    }
     
 
     @IBAction func createOneItem(_ sender: UIButton) {
@@ -58,7 +93,7 @@ extension CustomersVC: UITableViewDataSource, UITableViewDelegate {
     func initTV() {
         tableView.delegate = self
         tableView.dataSource = self
-        
+        tableView.reloadData()
     }
    
     
@@ -70,9 +105,9 @@ extension CustomersVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomersTVC", for: indexPath) as! CustomersTVC
         cell.selectionStyle = .none
+        let item = customersArray[indexPath.row]
+        cell.configure(data: item)
         
-        
-        //customersArray
         return cell
     }
     
@@ -89,7 +124,7 @@ extension CustomersVC: UITableViewDataSource, UITableViewDelegate {
 
 extension CustomersVC {
     
-    func showCustomers(current_page: Int) {
+    func showAllCustomers(current_page: Int) {
         SVProgressHUD.show()
         
         let requestUrl = APIConstant.getCustomers + "?page=\(current_page )"
@@ -123,6 +158,47 @@ extension CustomersVC {
                     lastPagee = pages.lastPage!
                     
                     
+                }catch{
+                    self.view.makeToast(responseObject?.message ?? "")
+                }
+                
+            }else {
+                self.view.makeToast(responseObject?.message ?? "")
+            }
+        }
+    }
+    
+    func submitSearchCustomerList(name: String, current_page: Int) {
+       
+        let requestUrl = APIConstant.getCustomers + "?name=\(name)&page=\(current_page)"
+        print("requestUrl search Customers \(requestUrl)")
+        
+        API.startRequest(url: requestUrl, method: .get, parameters: nil, viewCon: self) { [self] status, responseObject in
+            
+            if self.refresher.isRefreshing {
+                self.refresher.endRefreshing()
+            }
+            
+            if status {
+                
+            
+                do{
+                    let object = try JSONDecoder().decode([CustomersOB].self, from: responseObject?.data as! Data)
+
+                    if currentPagee == 1{
+                        customersArray.removeAll()
+                    }
+                    
+                    
+                    customersArray.append(contentsOf: object)
+                    initTV()
+                    
+                    
+                    let pages =  try! JSONDecoder().decode(PagesOB.self, from: responseObject?.pages as! Data)
+                    
+                    currentPagee = pages.currentPage!
+                    lastPagee = pages.lastPage!
+                     
                 }catch{
                     self.view.makeToast(responseObject?.message ?? "")
                 }

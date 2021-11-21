@@ -47,6 +47,10 @@ class APIConstant {
     //ITEMS
     static let items = posURL + "/items"
     static let getModificationsAndTaxes = items + "/get_modifications_and_taxes"
+    static let getModificationsAndTaxesNew = items + "/get_colors_categories_modifications_and_taxes"
+    //{{url}}/api/pos/items/get_colors_categories_modifications_and_taxes?item_id=76&store_id=33
+    
+    
     static let addItem = items + "/store"
     static let getAllItems = posURL + "/items"
     static let showItem = posURL + "/items/show?item_id="
@@ -76,16 +80,24 @@ class APIConstant {
     
     //HOME
     static let getHome = posURL + "/home?pos_id="
+    static let getHomeDetails = posURL + "/tickets/get_modifications_taxes_and_discounts"
+    
+    
+    
     
     
     //TICKET
     static let addToTicket = posURL + "/tickets/store"
-    
+    static let showTicket = posURL + "/tickets/show/orders"
+    //show_ticket
+    //{{url}}/api/pos/tickets/show/orders?store_id=33&ticket_id=15
     
     //CUSTOMERS
     static let getCustomers = posURL + "/customers"
-    
-    
+    static let addCustomers = posURL + "/customers/store"
+    static let showCustomers = posURL + "/customers/show?customer_id="
+    static let editCustomers = posURL + "/customers/edit"
+    static let deleteCustomers = posURL + "/customers/delete?customer_id="
     
 }
 

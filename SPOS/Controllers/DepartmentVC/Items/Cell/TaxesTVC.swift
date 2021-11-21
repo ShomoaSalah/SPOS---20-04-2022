@@ -9,6 +9,7 @@ import UIKit
 
 class TaxesTVC: UITableViewCell {
 
+    @IBOutlet weak var backgroundViewww: UIView!
     @IBOutlet weak var taxNameLbl: UILabel!
     @IBOutlet weak var enableTaxSwitch: UISwitch!
     

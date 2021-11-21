@@ -18,6 +18,9 @@ class HomeVC: BaseVC {
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var shiftClosedView: UIView!
     
+    @IBOutlet weak var chargeLbl: UILabel!
+    var lblBadg: UILabel!
+    var ticketId = 0
     // variant
     // ...
     
@@ -25,14 +28,15 @@ class HomeVC: BaseVC {
     var fromDiscount = false
     var fromCategories = false
     var fromSearch = false
+    var badgeCount = ""
     
     private let itemsPerRow: CGFloat = 3
     @IBOutlet weak var allItemsView: UIView!
     private let sectionInsets = UIEdgeInsets(
-        top: 6,
-        left: 24,
-        bottom: 6,
-        right: 24)
+        top: 10,
+        left: 28,
+        bottom: 10,
+        right: 28)
     
     var imagesColor = [
         UIImage(named: "img-color1"),
@@ -158,10 +162,10 @@ class HomeVC: BaseVC {
     func appendTwoItem()->[CategorieOB] {
         var categories = [CategorieOB]()
         
-        let cat1 = CategorieOB(name: "All items", colorID: 0, userID: 0, id: -1, itemsCount: 0, kitchenPrintersExists: false, colorName: "", image: "", priceState: "", type: "", objectType: "")
+        let cat1 = CategorieOB(name: "All items", colorID: 0, userID: 0, id: -1, itemsCount: 0, kitchenPrintersExists: false, colorName: "", image: "", priceState: "", type: "", objectType: "", showInterface: false)
         categories.append(cat1)
         
-        let cat2 = CategorieOB(name: "Discounts", colorID: 0, userID: 0, id: 1, itemsCount: 0, kitchenPrintersExists: false, colorName: "", image: "", priceState: "", type: "", objectType: "")
+        let cat2 = CategorieOB(name: "Discounts", colorID: 0, userID: 0, id: 1, itemsCount: 0, kitchenPrintersExists: false, colorName: "", image: "", priceState: "", type: "", objectType: "", showInterface: false)
         
         
         categories.append(cat2)
@@ -259,7 +263,7 @@ class HomeVC: BaseVC {
         
         let button1 = UIButton(frame: CGRect(x: 0,y: 5, width: 18, height: 30))
         button1.setImage(UIImage(named: "ic-Bag"), for: .normal)
-        
+        // var lblBadg: UILabel!
         let lblBadge = UILabel.init(frame: CGRect.init(x: -12, y: 5, width: 15, height: 15))
         lblBadge.backgroundColor = .clear//"202124".color
         lblBadge.clipsToBounds = true
@@ -267,9 +271,9 @@ class HomeVC: BaseVC {
         lblBadge.textColor = "202124".color
         lblBadge.font = .systemFont(ofSize: 12)
         lblBadge.textAlignment = .center
-        lblBadge.text = "12"
+        lblBadge.text = badgeCount
         button1.addSubview(lblBadge)
-        
+        print("badgeCount \(badgeCount)")
         
         button1.addTarget(self, action: #selector(didTapOnTicket), for: .touchUpInside)
         
@@ -315,6 +319,8 @@ class HomeVC: BaseVC {
     
     @objc func didTapOnTicket(){
         let vc = UIStoryboard.init(name: "TicketSB", bundle: Bundle.main).instantiateViewController(withIdentifier: "TicketVC") as! TicketVC
+        vc.ticketID = self.ticketId
+        print("ticketId \(self.ticketId)")
         self.navigationItem.hideBackWord()
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -355,12 +361,18 @@ class HomeVC: BaseVC {
         super.viewDidAppear(true)
         
         print("viewDidAppear again openShift")
+        //setBadgeValue
+        
         addNotificationObserver(.reloadCategoriesInHome, #selector(reloadCategoriesInHome))
        
         addNotificationObserver(.closeShift, #selector(closeShift))
         addNotificationObserver(.deleteTicket, #selector(deleteTicket))
-        
+        addNotificationObserver(.setBadgeValue, #selector(setBadgeValue))
     }
+    @objc func setBadgeValue(){
+        addRightButton()
+    }
+    
     
     @objc func reloadCategoriesInHome(){
         getHomeee(pos_id: posID, current_page: currentPagee, fromAllItems: false, fromDiscounts: false, fromCategory: true)
@@ -541,31 +553,34 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
             
             let item = discountArray[indexPath.row]
             openSpecificView(store_id: self.storeID, type_id: item.id ?? 0, type: 2, priceState: item.amountValue ?? "")
+            
         } else if fromALlItesm {
             
             let item = itemsArray[indexPath.row]
             print("fromALlItesm 1")
             
-            openSpecificView(store_id: self.storeID, type_id: item.id ?? 0, type: 1, priceState: item.priceState!)
-            
+//            openSpecificView(store_id: self.storeID, type_id: item.id ?? 0, type: 1, priceState: item.priceState ?? "")
+            openSpecificViewNew(store_id: self.storeID, type_id:  item.id ?? 0, type: 1, priceState: item.priceState ?? "", showInterface: item.showInterface!)
+
             
         } else if fromCategories {
             
             let item = categorieArray[indexPath.row]
             
-            openSpecificView(store_id: self.storeID, type_id: item.id ?? 0, type: 1, priceState: item.priceState!)
-            
+//            openSpecificView(store_id: self.storeID, type_id: item.id ?? 0, type: 1, priceState: item.priceState ?? "")
+            openSpecificViewNew(store_id: self.storeID, type_id:  item.id ?? 0, type: 1, priceState: item.priceState ?? "", showInterface: item.showInterface!)
         }else if fromSearch {
             
             let item = searchHomeArray[indexPath.row]
             
             switch item.objectType {
             case "item":
-                openSpecificView(store_id: self.storeID, type_id: item.id ?? 0, type: 1, priceState: item.priceState!)
+//                openSpecificViewNew(store_id: self.storeID, type_id:  item.id ?? 0, type: 1, priceState: item.priceState ?? "", showInterface: item.show)
+                openSpecificView(store_id: self.storeID, type_id: item.id ?? 0, type: 1, priceState: item.priceState ?? "")
             break
             
             case "discount":
-                openSpecificView(store_id: self.storeID, type_id: item.id ?? 0, type: 2, priceState: item.priceState!)
+                openSpecificView(store_id: self.storeID, type_id: item.id ?? 0, type: 2, priceState: item.priceState ?? "")
                 break
             
             default:
@@ -579,33 +594,12 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func openSpecificView(store_id: Int, type_id: Int, type: Int, priceState: String){
         
-        
-        if priceState.contains("variant") {
-            //Show Details
-            
-            print("priceState contain variant")
-            
-            
-            let vc = UIStoryboard.init(name: "HomeDetailsSB", bundle: Bundle.main).instantiateViewController(withIdentifier: "HomeItemDetailsVC") as! HomeItemDetailsVC
-            self.navigationItem.hideBackWord()
-            self.navigationController?.pushViewController(vc, animated: true)
-    
-    
-        }
-        
-//        else if !priceState.contains("variant")  {
-//            print("priceState NON")
-//            //Add to ticket Direct
-//
-//        }
-        
-        
-        else if priceState.isEmptyStr {
+        if priceState.isEmptyStr {
            print("priceState isEmptyStr \(priceState)")
+            
             //Add Price View
             let vc = UIStoryboard.init(name: "HomeDetailsSB", bundle: Bundle.main).instantiateViewController(withIdentifier: "AddNewPriceVC") as! AddNewPriceVC
            
-            
             vc.store_id = store_id
             vc.type_id = type_id
             vc.type = type
@@ -614,9 +608,65 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
             self.navigationController?.pushViewController(vc, animated: true)
             
         }
+        else {
+            
+            if priceState.contains("variant") {
+                //Show Details
+                
+                print("priceState contain variant")
+                
+                
+                let vc = UIStoryboard.init(name: "HomeDetailsSB", bundle: Bundle.main).instantiateViewController(withIdentifier: "HomeItemDetailsV2VC") as! HomeItemDetailsV2VC
+                vc.itemId = type_id
+                vc.storeID = store_id
+                
+                self.navigationItem.hideBackWord()
+                self.navigationController?.pushViewController(vc, animated: true)
+        
+        
+            } else if !priceState.contains("variant")  {
+                print("priceState NON")
+                //Add to ticket Direct
+    
+            }
+            
+            
+        }
+        
         
     }
     
+    
+    func openSpecificViewNew(store_id: Int, type_id: Int, type: Int, priceState: String, showInterface: Bool) {
+        
+        if priceState.isEmptyStr {
+            //Add Price View
+            let vc = UIStoryboard.init(name: "HomeDetailsSB", bundle: Bundle.main).instantiateViewController(withIdentifier: "AddNewPriceVC") as! AddNewPriceVC
+            vc.store_id = store_id
+            vc.type_id = type_id
+            vc.type = type
+            self.navigationItem.hideBackWord()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
+        if showInterface {
+            let vc = UIStoryboard.init(name: "HomeDetailsSB", bundle: Bundle.main).instantiateViewController(withIdentifier: "HomeItemDetailsV2VC") as! HomeItemDetailsV2VC
+            vc.itemId = type_id
+            vc.storeID = store_id
+            self.navigationItem.hideBackWord()
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else {
+           
+            if !priceState.isEmptyStr {
+                submitAddToTicket(pos_id: posID, type_id: type_id, type: 1)
+            }
+           
+        }
+        
+        
+    }
+    
+        
     
 }
 
@@ -626,10 +676,11 @@ extension HomeVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
-        let availableWidth = collectionView.frame.width - paddingSpace
+        let availableWidth = self.collectionView.frame.width - paddingSpace
         let widthPerItem = availableWidth / itemsPerRow
-        
-        return CGSize(width: 105, height: 105)
+        print("widthPerItem \(widthPerItem)")
+   
+        return CGSize(width: widthPerItem, height: 105)
     }
     
 }
@@ -684,9 +735,11 @@ extension HomeVC {
                     print("object.isShift \(object.isShift!)")
                     
                     if object.isShiftMenu! {
-                        postNotificationCenter(.closeShift)
-                    }else {
                         postNotificationCenter(.openShift)
+                        
+                    }else {
+                        postNotificationCenter(.closeShift)
+                       
                     }
                     
 //                    if object.isShift ?? false {
@@ -752,7 +805,11 @@ extension HomeVC {
                         categorieArray.removeAll()
                     }
               
+                    badgeCount = object.count?.description ?? ""
+                    print("badgeCount \(badgeCount)")
+                    chargeLbl.text = object.charge ?? ""
                     
+                    ticketId = object.ticketID ?? 0
                     
                     discountArray.append(contentsOf: object.discounts ?? [DiscountsOB]())
                     itemsArray.append(contentsOf: object.items ?? [ItemsOB]())
@@ -859,5 +916,57 @@ extension HomeVC {
         
     }
     
+    //
     
+    func submitAddToTicket(pos_id: Int, type_id: Int?, type: Int?) {
+        
+        
+        let urlRequest = APIConstant.addToTicket
+        print("urlRequest add To Ticket \(urlRequest)")
+        
+        var params = [String:Any]()
+        params["pos_id"] = pos_id
+        params["type_id"] = type_id
+        params["type"] = type
+//        params["price"] = price
+//
+//        params["quantity"] = quantity
+//        params["modification_detail_ids[]"] = modification_detail_ids
+//        params["comment"] = comment
+//        params["discount_ids[]"] = discount_ids
+//        params["tax_ids[]"] = tax_ids
+//        params["variant_detail_id"] = variant_detail_id
+        
+        print("PARAMS \(params)")
+        SVProgressHUD.show()
+        
+        
+        API.startRequest(url: urlRequest, method: .post, parameters: params, viewCon: self) { [self] (status, responesObject) in
+            
+            SVProgressHUD.dismiss()
+            if status {
+                
+                do{
+                    
+                    let object = try JSONDecoder().decode(AddToTicketOB.self, from: responesObject?.data as! Data)
+
+                    badgeCount = object.count?.description ?? ""
+                    addRightButton()
+                    postNotificationCenter(.setBadgeValue)
+                    
+                    self.navigationController?.view.makeToast(responesObject?.message)
+
+                }catch{
+                    self.navigationController?.view.makeToast(error.localizedDescription)
+                    print(error.localizedDescription)
+                }
+                
+            }
+            
+            else{
+                self.navigationController?.view.makeToast((responesObject?.message!)!)
+            }
+            
+        }
+    }
 }

@@ -20,7 +20,7 @@ target 'SPOS' do
   
   pod 'OTPInputView'
   pod 'InputViews'
-  pod 'ActiveLabel'
+  
   
   
   target 'SPOSTests' do

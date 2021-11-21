@@ -23,8 +23,36 @@ class LoginVC: UIViewController {
         loginBtn.applyGradientUIButton(colours: ["0386E8".color, "0CA7EE".color], gradientOrientation: .horizontal)
         
         //REMOVE BACK INDICATOR
-        self.navigationController?.navigationBar.backIndicatorImage = UIImage()
-        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage()
+        if #available(iOS 15.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            
+            let proxy = UINavigationBar.appearance()
+            proxy.backIndicatorImage = UIImage()
+            proxy.backIndicatorTransitionMaskImage = UIImage()
+            
+            proxy.standardAppearance = appearance
+            proxy.scrollEdgeAppearance = appearance
+            
+            /*
+             let appearance = UINavigationBarAppearance()
+             appearance.configureWithOpaqueBackground()
+             appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+             appearance.backgroundColor = .red
+             
+             let proxy = UINavigationBar.appearance()
+             proxy.tintColor = .white
+             proxy.standardAppearance = appearance
+             proxy.scrollEdgeAppearance = appearance
+             */
+            
+            
+        }else {
+            self.navigationController?.navigationBar.backIndicatorImage = UIImage()
+            self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage()
+        }
+        
+       
         
     }
     
@@ -116,6 +144,7 @@ extension LoginVC {
                 do{
                     
                     let object = try JSONDecoder().decode(UserOB.self, from: responesObject?.data as! Data)
+                    
                     SplashAnimationVC.checkUserState(isCompleted: object.isCompleted ?? "", object: object, view: self)
                     
                 }catch{

@@ -82,7 +82,7 @@ class SplashAnimationVC: UIViewController {
         
         if object != nil {
             print("object is nil \(object?.token)")
-            newObject = UserOB(id: object?.id, ownerID: object?.ownerID, storeID: object?.storeID, name: object?.name, wallet: object?.wallet, mobile: object?.mobile, countryID: object?.countryID, email: object?.email, isCompleted: object?.isCompleted, agreementState: object?.agreementState, pinCode: object?.pinCode, backOffice: object?.backOffice, status: object?.status, token: object?.token, role: object?.role, nameOfStore: object?.nameOfStore, countryName: object?.countryName, backOfficeURL: object?.backOfficeURL, posID: object?.posID, isScan: object?.isScan, pinCodeState: object?.pinCodeState, posName: object?.posName, isShift: object?.isShift, isShiftMenu: object?.isShiftMenu, employeeName: object?.employeeName, shiftID: object?.shiftID)
+            newObject = UserOB(id: object?.id, ownerID: object?.ownerID, storeID: object?.storeID, name: object?.name, wallet: object?.wallet, mobile: object?.mobile, countryID: object?.countryID, email: object?.email, isCompleted: object?.isCompleted, agreementState: object?.agreementState, pinCode: object?.pinCode, backOffice: object?.backOffice, status: object?.status, token: object?.token, role: object?.role, nameOfStore: object?.nameOfStore, countryName: object?.countryName, backOfficeURL: object?.backOfficeURL, posID: object?.posID, isScan: object?.isScan, pinCodeState: object?.pinCodeState, posName: object?.posName, isShift: object?.isShift, isShiftMenu: object?.isShiftMenu, employeeName: object?.employeeName, shiftID: object?.shiftID, isDiningOption: false)
             
         }else {
             print("object")
@@ -106,7 +106,15 @@ class SplashAnimationVC: UIViewController {
         case "no_pos_devices_available":
             
             let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CustomAlertMessageVC") as! CustomAlertMessageVC
-            UserHelper.saveUser(user: newObject!)
+            
+            if UserHelper.lodeUser()?.token == "" {
+                
+                UserHelper.saveUser(user: newObject!)
+            }else {
+                UserHelper.saveUser(user: object!)
+            }
+            
+            
             vc.backOfficeURL = object?.backOfficeURL ?? ""
             vc.modalPresentationStyle = .overFullScreen
             vc.modalTransitionStyle = .crossDissolve
@@ -118,7 +126,14 @@ class SplashAnimationVC: UIViewController {
             
             let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "SelectStoreVC") as! SelectStoreVC
             //            UserHelper.saveUser(user: object)
-            UserHelper.saveUser(user: newObject!)
+//            UserHelper.saveUser(user: newObject!)
+            if UserHelper.lodeUser()?.token == "" {
+                
+                UserHelper.saveUser(user: newObject!)
+            }else {
+                UserHelper.saveUser(user: object!)
+            }
+            
             print("Done")
             view.navigationItem.hideBackWord()
             view.navigationController?.pushViewController(vc, animated: true)
@@ -127,7 +142,15 @@ class SplashAnimationVC: UIViewController {
         case "choose_pos":
             
             let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "SelectPOSVC") as! SelectPOSVC
-            UserHelper.saveUser(user: newObject!)
+//            UserHelper.saveUser(user: newObject!)
+            if UserHelper.lodeUser()?.token == "" {
+                
+                UserHelper.saveUser(user: newObject!)
+            }else {
+                UserHelper.saveUser(user: object!)
+            }
+            
+            
             vc.selectedStoreID = object?.storeID ?? 0
             
             view.navigationItem.hideBackWord()
@@ -137,7 +160,14 @@ class SplashAnimationVC: UIViewController {
         case "enter_pin_code":
             
             let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "CustomPinCodeVC") as! CustomPinCodeVC
-            UserHelper.saveUser(user: newObject!)
+//            UserHelper.saveUser(user: newObject!)
+            if UserHelper.lodeUser()?.token == "" {
+                
+                UserHelper.saveUser(user: newObject!)
+            }else {
+                UserHelper.saveUser(user: object!)
+            }
+            
             
             vc.pos_id = UserHelper.lodeUser()?.posID ?? 0
             
