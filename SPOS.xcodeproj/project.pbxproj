@@ -149,6 +149,11 @@
 		BFAF8117273A7288003D3D64 /* EntetTimeCheckOutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAF8116273A7288003D3D64 /* EntetTimeCheckOutVC.swift */; };
 		BFAF8119273A993B003D3D64 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAF8118273A993B003D3D64 /* BaseVC.swift */; };
 		BFB59466270D8A12004EF2A1 /* BarcodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB59465270D8A12004EF2A1 /* BarcodeVC.swift */; };
+		BFBAECDC274E4FE000C11B19 /* ShowTaxFromTicketVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBAECDB274E4FE000C11B19 /* ShowTaxFromTicketVC.swift */; };
+		BFBAECDE274E508E00C11B19 /* ShowTaxFromTicketTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBAECDD274E508E00C11B19 /* ShowTaxFromTicketTVC.swift */; };
+		BFBAECE0274E568A00C11B19 /* TaxOB.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBAECDF274E568A00C11B19 /* TaxOB.swift */; };
+		BFBAECE2274E77BB00C11B19 /* ShowDiscountFromTicketVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBAECE1274E77BB00C11B19 /* ShowDiscountFromTicketVC.swift */; };
+		BFBAECE4274E782500C11B19 /* ShowDiscountFromTicketTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBAECE3274E782500C11B19 /* ShowDiscountFromTicketTVC.swift */; };
 		BFC02FEA270AFAA1002CFEC1 /* PayTicketVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC02FE9270AFAA1002CFEC1 /* PayTicketVC.swift */; };
 		BFC02FED270AFADA002CFEC1 /* PayTicketTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC02FEB270AFADA002CFEC1 /* PayTicketTVC.swift */; };
 		BFC02FEE270AFADA002CFEC1 /* PayTicketTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFC02FEC270AFADA002CFEC1 /* PayTicketTVC.xib */; };
@@ -219,6 +224,8 @@
 		BFE8D5E02709F14800CE0F5C /* HomeItemDetailsTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFE8D5DE2709F14800CE0F5C /* HomeItemDetailsTVC.xib */; };
 		BFE8D5E32709F1DC00CE0F5C /* HomeItemDetailsSectionTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE8D5E12709F1DC00CE0F5C /* HomeItemDetailsSectionTVC.swift */; };
 		BFE8D5E42709F1DC00CE0F5C /* HomeItemDetailsSectionTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFE8D5E22709F1DC00CE0F5C /* HomeItemDetailsSectionTVC.xib */; };
+		BFF60B3E274BBF0300C5E38C /* AddNewCustomerToTicketTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF60B3C274BBF0300C5E38C /* AddNewCustomerToTicketTVC.swift */; };
+		BFF60B3F274BBF0300C5E38C /* AddNewCustomerToTicketTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFF60B3D274BBF0300C5E38C /* AddNewCustomerToTicketTVC.xib */; };
 		BFFE09CC272687A600C2BE69 /* ColorsOB.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFE09CB272687A600C2BE69 /* ColorsOB.swift */; };
 		BFFE09CE272696FD00C2BE69 /* CategorieOB.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFE09CD272696FD00C2BE69 /* CategorieOB.swift */; };
 /* End PBXBuildFile section */
@@ -388,6 +395,11 @@
 		BFAF8116273A7288003D3D64 /* EntetTimeCheckOutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntetTimeCheckOutVC.swift; sourceTree = "<group>"; };
 		BFAF8118273A993B003D3D64 /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		BFB59465270D8A12004EF2A1 /* BarcodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeVC.swift; sourceTree = "<group>"; };
+		BFBAECDB274E4FE000C11B19 /* ShowTaxFromTicketVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTaxFromTicketVC.swift; sourceTree = "<group>"; };
+		BFBAECDD274E508E00C11B19 /* ShowTaxFromTicketTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTaxFromTicketTVC.swift; sourceTree = "<group>"; };
+		BFBAECDF274E568A00C11B19 /* TaxOB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxOB.swift; sourceTree = "<group>"; };
+		BFBAECE1274E77BB00C11B19 /* ShowDiscountFromTicketVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDiscountFromTicketVC.swift; sourceTree = "<group>"; };
+		BFBAECE3274E782500C11B19 /* ShowDiscountFromTicketTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDiscountFromTicketTVC.swift; sourceTree = "<group>"; };
 		BFC02FE9270AFAA1002CFEC1 /* PayTicketVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayTicketVC.swift; sourceTree = "<group>"; };
 		BFC02FEB270AFADA002CFEC1 /* PayTicketTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayTicketTVC.swift; sourceTree = "<group>"; };
 		BFC02FEC270AFADA002CFEC1 /* PayTicketTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PayTicketTVC.xib; sourceTree = "<group>"; };
@@ -464,6 +476,8 @@
 		BFE8D5DE2709F14800CE0F5C /* HomeItemDetailsTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeItemDetailsTVC.xib; sourceTree = "<group>"; };
 		BFE8D5E12709F1DC00CE0F5C /* HomeItemDetailsSectionTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeItemDetailsSectionTVC.swift; sourceTree = "<group>"; };
 		BFE8D5E22709F1DC00CE0F5C /* HomeItemDetailsSectionTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeItemDetailsSectionTVC.xib; sourceTree = "<group>"; };
+		BFF60B3C274BBF0300C5E38C /* AddNewCustomerToTicketTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewCustomerToTicketTVC.swift; sourceTree = "<group>"; };
+		BFF60B3D274BBF0300C5E38C /* AddNewCustomerToTicketTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddNewCustomerToTicketTVC.xib; sourceTree = "<group>"; };
 		BFFE09CB272687A600C2BE69 /* ColorsOB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsOB.swift; sourceTree = "<group>"; };
 		BFFE09CD272696FD00C2BE69 /* CategorieOB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorieOB.swift; sourceTree = "<group>"; };
 		F715A2277526B8092DC2E623 /* Pods_SPOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SPOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -525,6 +539,8 @@
 			children = (
 				BF17EB8E270C4EAC00D93D78 /* Cell */,
 				BF17EB8C270C4D0F00D93D78 /* TicketVC.swift */,
+				BFBAECDB274E4FE000C11B19 /* ShowTaxFromTicketVC.swift */,
+				BFBAECE1274E77BB00C11B19 /* ShowDiscountFromTicketVC.swift */,
 				BF4C5E74270C945600C9E571 /* TicketPersonVC.swift */,
 				BF269FB5270C62080032B58B /* OpenTicketsVC.swift */,
 				BF269FBB270C68590032B58B /* TransferTicketsVC.swift */,
@@ -546,6 +562,8 @@
 				BF17EB90270C4EC200D93D78 /* TicketCVC.xib */,
 				BF951533270C551400CCE113 /* TicketTVC.swift */,
 				BF951534270C551400CCE113 /* TicketTVC.xib */,
+				BFF60B3C274BBF0300C5E38C /* AddNewCustomerToTicketTVC.swift */,
+				BFF60B3D274BBF0300C5E38C /* AddNewCustomerToTicketTVC.xib */,
 				BF269FB7270C62480032B58B /* OpenTicketsTVC.swift */,
 				BF269FB8270C62480032B58B /* OpenTicketsTVC.xib */,
 				BF7E8F5F270C6BB600A717C2 /* TransferTicketsSectionTVC.swift */,
@@ -560,6 +578,8 @@
 				BF4C5E67270C803B00C9E571 /* AddCustomerToTicketTVC.xib */,
 				BF4C5E6C270C8C8B00C9E571 /* TransferTicket2TVC.swift */,
 				BF4C5E6D270C8C8B00C9E571 /* TransferTicket2TVC.xib */,
+				BFBAECDD274E508E00C11B19 /* ShowTaxFromTicketTVC.swift */,
+				BFBAECE3274E782500C11B19 /* ShowDiscountFromTicketTVC.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -673,6 +693,7 @@
 				BF6F563C2744F55E0051B8BC /* HomeDetailsOB.swift */,
 				BF83D76E274A594F00ECEC20 /* AddToTicketOB.swift */,
 				BF83D770274A66AA00ECEC20 /* TicketDetailsOB.swift */,
+				BFBAECDF274E568A00C11B19 /* TaxOB.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -1269,6 +1290,7 @@
 				BF29D0B4270448E20075D667 /* HomeSB.storyboard in Resources */,
 				BFE2ACA6272532CF00A5AEC0 /* Localizable.strings in Resources */,
 				BF7E8F6A270C706000A717C2 /* TransferTicketsSecondTVC.xib in Resources */,
+				BFF60B3F274BBF0300C5E38C /* AddNewCustomerToTicketTVC.xib in Resources */,
 				BF7E8F62270C6BB600A717C2 /* TransferTicketsSectionTVC.xib in Resources */,
 				BF4C5E63270C7C9300C9E571 /* TransferTicketsToEmployeTVC.xib in Resources */,
 				BFC73BBE27035BA100C64EE0 /* Main.storyboard in Resources */,
@@ -1409,6 +1431,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF286EF2272A74EC00579068 /* ModificationsTaxesOB.swift in Sources */,
+				BFBAECDE274E508E00C11B19 /* ShowTaxFromTicketTVC.swift in Sources */,
 				BFC73C4727035E3600C64EE0 /* SetNewPasswordVC.swift in Sources */,
 				BF790F1C2705A497008000FF /* CustomerShowTVC.swift in Sources */,
 				BF44C41A2709B568005BFD0D /* AddNewCustomersVC.swift in Sources */,
@@ -1444,6 +1467,7 @@
 				BFA691872705AC5100F91340 /* TaxVC.swift in Sources */,
 				BF60769A2709C096003C94D1 /* ShiftHeaderTVC.swift in Sources */,
 				BF29D0C2270497F70075D667 /* ReceiptsTVC.swift in Sources */,
+				BFBAECE4274E782500C11B19 /* ShowDiscountFromTicketTVC.swift in Sources */,
 				BFC73C2C27035D5500C64EE0 /* Constants.swift in Sources */,
 				BF3831092725850400480DED /* MyPOSOB.swift in Sources */,
 				BFC73C3127035D5500C64EE0 /* UITextView+Extensions.swift in Sources */,
@@ -1453,12 +1477,14 @@
 				BF9869CB2705D78300E86045 /* AllItemsVC.swift in Sources */,
 				BFC5B5902704A7BF0009665C /* CustomTabBar.swift in Sources */,
 				BF29D0C6270498280075D667 /* ReceiptsSectionTVC.swift in Sources */,
+				BFBAECE0274E568A00C11B19 /* TaxOB.swift in Sources */,
 				BF83D76F274A594F00ECEC20 /* AddToTicketOB.swift in Sources */,
 				BF286EF0272A727A00579068 /* CreateNewItemTestVC.swift in Sources */,
 				BF7E8F65270C6CB500A717C2 /* TransferTicketsFirstTVC.swift in Sources */,
 				BF81BBB7272982520023855B /* AddItemSectionTVC.swift in Sources */,
 				BFC73C4927035E3600C64EE0 /* VerificationCodeVC.swift in Sources */,
 				BFA691902705B46F00F91340 /* GeneralVC.swift in Sources */,
+				BFBAECDC274E4FE000C11B19 /* ShowTaxFromTicketVC.swift in Sources */,
 				BF951535270C551400CCE113 /* TicketTVC.swift in Sources */,
 				BFD85B2A2709DDBF00FBED53 /* HomeImageCVC.swift in Sources */,
 				BF17EB91270C4EC200D93D78 /* TicketCVC.swift in Sources */,
@@ -1483,6 +1509,7 @@
 				BFC73C4B270363D300C64EE0 /* SignUpVC.swift in Sources */,
 				BFE447A12733D19C00CA1277 /* CashManagementOB.swift in Sources */,
 				BFCFAD922737E63B005DC26A /* Array+Extension.swift in Sources */,
+				BFBAECE2274E77BB00C11B19 /* ShowDiscountFromTicketVC.swift in Sources */,
 				BF83D771274A66AA00ECEC20 /* TicketDetailsOB.swift in Sources */,
 				BF60769E2709C150003C94D1 /* ShiftTVC.swift in Sources */,
 				BF6B58312732886D007F6E20 /* ShiftOB.swift in Sources */,
@@ -1539,6 +1566,7 @@
 				BF4C5E73270C8F0700C9E571 /* CustomTicket2VC.swift in Sources */,
 				BF7C823B2704B36D006935BE /* RefundVC.swift in Sources */,
 				BFC73C4D270365DB00C64EE0 /* CustomMaskUIView.swift in Sources */,
+				BFF60B3E274BBF0300C5E38C /* AddNewCustomerToTicketTVC.swift in Sources */,
 				BFE620D5273BF20C00B1D627 /* AddNewPriceVC.swift in Sources */,
 				BF269FB9270C62480032B58B /* OpenTicketsTVC.swift in Sources */,
 				BF52D4C8272FC84E005E9EB3 /* ShowEditItemVC.swift in Sources */,
@@ -1767,7 +1795,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = U52F2M25LT;
 				INFOPLIST_FILE = SPOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1789,7 +1817,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = U52F2M25LT;
 				INFOPLIST_FILE = SPOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

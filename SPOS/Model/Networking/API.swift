@@ -19,7 +19,8 @@ class API {
         var headers = HTTPHeaders()
         headers["Accept-Language"] = UserDefaults.standard.string(forKey:"Language")
         headers["Accept"] = "application/json"
-        
+        headers["Accept-Language"] = "ar"
+        //Accept-Language
         if UserHelper.isLogin(){
             let token = (UserHelper.lodeUser()?.token)!
             
@@ -78,7 +79,6 @@ class API {
         
         
     }
-    
     
     static func getCountriesList(completion:@escaping ([CountriesOB], Bool, String) -> Void) {
         
@@ -168,7 +168,6 @@ class API {
         }
     }
     
-    
     static func submitAddItem(url: String, _ param: [String:Any], auth: [String:String]?,_ imageKey:String = "image",_ image: UIImage?, viewCon: UIViewController? ,completion: @escaping (Bool,ResponseObject?)->Void) {
         
         SVProgressHUD.show()
@@ -179,6 +178,7 @@ class API {
             headers["Authorization"] = "Bearer \(token)"
             
             headers["Accept"] = "application/json"
+            headers["Accept-Language"] = "ar"
             print("Headers: ", headers)
         }
         
@@ -244,6 +244,8 @@ class API {
         }
         
     }
+    
+    
     /*
      
      static func sendMultiPartMultiImageSingle2Image(url: String, _ param: [String:Any], auth: [String:String]?,_ imagesKey:String = "images[]", _ images : [UIImage] = [] , imageKey:String = "image",_ image: UIImage?,_ idImageKey:String = "id_image",_ idImage: UIImage?, viewCon: UIViewController? ,completion: @escaping (Bool,ResponseObject?)->Void) {

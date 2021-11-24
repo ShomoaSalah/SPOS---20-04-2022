@@ -8,14 +8,16 @@
 import Foundation
 
 class TicketDetailsOB: Codable {
+    
     let diningOptions: [DiningOptionOB]?
     let orders: [OrderOB]?
     let containsDiscounts, containsTaxes, taxIncluded: Bool?
     let discountsValue, taxesValue, total: String?
+    let customer: CustomersOB?
     
     enum CodingKeys: String, CodingKey {
         case diningOptions = "dining_options"
-        case orders
+        case orders, customer
         case containsDiscounts = "contains_discounts"
         case containsTaxes = "contains_taxes"
         case taxIncluded = "tax_included"
@@ -24,9 +26,10 @@ class TicketDetailsOB: Codable {
         case total
     }
     
-    init(diningOptions: [DiningOptionOB]?, orders: [OrderOB]?, containsDiscounts: Bool?, containsTaxes: Bool?, taxIncluded: Bool?, discountsValue: String?, taxesValue: String?, total: String?) {
+    init(diningOptions: [DiningOptionOB]?, orders: [OrderOB]?, containsDiscounts: Bool?, containsTaxes: Bool?, taxIncluded: Bool?, discountsValue: String?, customer: CustomersOB?, taxesValue: String?, total: String?) {
         self.diningOptions = diningOptions
         self.orders = orders
+        self.customer = customer
         self.containsDiscounts = containsDiscounts
         self.containsTaxes = containsTaxes
         self.taxIncluded = taxIncluded
@@ -57,6 +60,7 @@ class OrderOB: Codable {
     let itemName, orderPrice: String?
     let variantName, modificationDetailsName: String?
     let containsDiscount, isOutOfStock: Bool?
+    let inStock: Int?
     
     enum CodingKeys: String, CodingKey {
         case id, quantity, comment
@@ -66,9 +70,10 @@ class OrderOB: Codable {
         case modificationDetailsName = "modification_details_name"
         case containsDiscount = "contains_discount"
         case isOutOfStock = "is_out_of_stock"
+        case inStock = "in_stock"
     }
     
-    init(id: Int?, quantity: Int?, comment: String?, itemName: String?, orderPrice: String?, variantName: String?, modificationDetailsName: String?, containsDiscount: Bool?, isOutOfStock: Bool?) {
+    init(id: Int?, quantity: Int?, comment: String?, itemName: String?, orderPrice: String?, variantName: String?, modificationDetailsName: String?, containsDiscount: Bool?, isOutOfStock: Bool?, inStock: Int?) {
         self.id = id
         self.quantity = quantity
         self.comment = comment
@@ -78,5 +83,6 @@ class OrderOB: Codable {
         self.modificationDetailsName = modificationDetailsName
         self.containsDiscount = containsDiscount
         self.isOutOfStock = isOutOfStock
+        self.inStock = inStock
     }
 }

@@ -17,6 +17,8 @@ extension Notification.Name {
     static let reloadCustomers = Notification.Name("reloadCustomers")
     static let setBadgeValue = Notification.Name("setBadgeValue")
     
+    static let reloadTicketDetails = Notification.Name("reloadTicketDetails")
+    
     static let openPinCodeVC = Notification.Name("openPinCodeVC")
     
     static let reloadShift = Notification.Name("reloadShift")

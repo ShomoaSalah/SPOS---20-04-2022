@@ -89,8 +89,14 @@ class APIConstant {
     //TICKET
     static let addToTicket = posURL + "/tickets/store"
     static let showTicket = posURL + "/tickets/show/orders"
-    //show_ticket
-    //{{url}}/api/pos/tickets/show/orders?store_id=33&ticket_id=15
+    static let clearTicket = posURL + "/tickets/delete?ticket_id="
+    static let addOrEditCustomerTicket = posURL + "/tickets/add_customer"
+    static let removeCustomerFromTicket = posURL + "/tickets/remove_customer?ticket_id="
+
+    static let getTaxesFromTicket = posURL + "/tickets/get_taxes?ticket_id="
+    static let deleteTaxesFromTicket = posURL + "/tickets/delete_taxes"
+    
+  
     
     //CUSTOMERS
     static let getCustomers = posURL + "/customers"

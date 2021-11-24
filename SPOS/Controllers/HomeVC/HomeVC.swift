@@ -810,7 +810,7 @@ extension HomeVC {
                     chargeLbl.text = object.charge ?? ""
                     
                     ticketId = object.ticketID ?? 0
-                    
+                    print("ticketId \(ticketId)")
                     discountArray.append(contentsOf: object.discounts ?? [DiscountsOB]())
                     itemsArray.append(contentsOf: object.items ?? [ItemsOB]())
                    // categorieArray.append(contentsOf: object.categories ?? [CategorieOB]())
@@ -950,6 +950,7 @@ extension HomeVC {
                     
                     let object = try JSONDecoder().decode(AddToTicketOB.self, from: responesObject?.data as! Data)
 
+                    ticketId = object.ticketID ?? 0
                     badgeCount = object.count?.description ?? ""
                     addRightButton()
                     postNotificationCenter(.setBadgeValue)

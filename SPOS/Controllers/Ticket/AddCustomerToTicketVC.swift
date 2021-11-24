@@ -18,10 +18,13 @@ class AddCustomerToTicketVC: BaseVC {
     var lastPagee = 0
     let refresher = UIRefreshControl()
     var customersArray = [CustomersOB]()
+    var fromTicket = false
+    var ticketID = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        
         initTV()
         addRightButton() 
         self.title = "إضافة عميل إلى التذكرة"
@@ -88,13 +91,8 @@ class AddCustomerToTicketVC: BaseVC {
         button1.titleLabel?.font = UIFont.systemFont(ofSize: 10)
         button1.addTarget(self, action: #selector(didTapOnAddNewClient), for: .touchUpInside)
 
-       
-      
         viewFN.addSubview(button1)
       
-        
-        
-        
         let rightBarButton = UIBarButtonItem(customView: viewFN)
         self.navigationItem.rightBarButtonItem = rightBarButton
         
@@ -136,13 +134,22 @@ extension AddCustomerToTicketVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = UIStoryboard.init(name: "DepartmentSB", bundle: Bundle.main).instantiateViewController(withIdentifier: "EditNewCustomersVC") as! EditNewCustomersVC
+        
         let item = customersArray[indexPath.row]
-        
-        vc.customerId = item.id ?? 0
-        
-        self.navigationItem.hideBackWord()
-        self.navigationController?.pushViewController(vc, animated: true)
+       
+        if fromTicket {
+            //REQUEST
+            submitAddOrEditCustomerTicket(ticket_id: ticketID, customer_id: item.id ?? 0)
+            
+        }else {
+            let vc = UIStoryboard.init(name: "DepartmentSB", bundle: Bundle.main).instantiateViewController(withIdentifier: "EditNewCustomersVC") as! EditNewCustomersVC
+           
+            vc.customerId = item.id ?? 0
+            
+            self.navigationItem.hideBackWord()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+       
     }
     
 
@@ -198,4 +205,31 @@ extension AddCustomerToTicketVC {
         }
     }
     
+    func submitAddOrEditCustomerTicket(ticket_id: Int, customer_id: Int) {
+       
+        let requestUrl = APIConstant.addOrEditCustomerTicket
+        print("requestUrl addOrEditCustomerTicket \(requestUrl)")
+        
+        var params = [String:Any]()
+        params["ticket_id"] = ticket_id
+        params["customer_id"] = customer_id
+        
+        print("PARAMS \(params)")
+        SVProgressHUD.show()
+        
+        API.startRequest(url: requestUrl, method: .post, parameters: params, viewCon: self) { [self] status, responseObject in
+            
+            if status {
+                postNotificationCenter(.reloadTicketDetails)
+                self.view.makeToast(responseObject?.message)
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                    self.navigationController?.popViewController(animated: true)
+                }
+                
+            }else {
+                
+                self.view.makeToast(responseObject?.message ?? "")
+            }
+        }
+    }
 }

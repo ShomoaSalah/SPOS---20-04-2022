@@ -32,9 +32,75 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
         // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
         
-        
+        //CLEAR TICKET
         print("application123application123 sceneDidDisconnect")
     }
+    
+    /*
+     
+     
+     func getProfile(pos_id: Int)  {
+         
+         let requestUrl = APIConstant.profile + "\(pos_id)"
+         print("requestUrl profile \(requestUrl)")
+         
+         SVProgressHUD.show()
+         
+         
+         API.startRequest(url: requestUrl, method: .get, parameters: nil, viewCon: self) { [self] (status, responesObject) in
+             
+             
+             if status {
+                 
+                 do{
+                     
+                     let object = try JSONDecoder().decode(UserOB.self, from: responesObject?.data as! Data)
+                     
+                     if object.isDiningOption! {
+                         headerTV.isHidden = false
+                         tableView.layoutTableHeaderView()
+                     }else {
+                         headerTV.isHidden = true
+                         tableView.layoutTableHeaderView()
+                     }
+                     
+                     
+                 }catch{
+                     self.navigationController?.view.makeToast(error.localizedDescription)
+                     print(error.localizedDescription)
+                 }
+                 
+                 
+             }
+             
+             else{
+                 self.navigationController?.view.makeToast((responesObject?.message!)!)
+             }
+             
+         }
+     }
+     
+     func clearTicketDetails(ticket_id: Int) {
+         SVProgressHUD.show()
+         
+         let requestUrl = APIConstant.clearTicket + "\(ticket_id)"
+         print("requestUrl clear Ticket \(requestUrl)")
+         
+         API.startRequest(url: requestUrl, method: .delete, parameters: nil, viewCon: self) { [self] status, responseObject in
+             
+             if status {
+                 
+                 self.view.makeToast(responseObject?.message)
+                 
+                 ticketEmptyView.isHidden = false
+                 
+             }else {
+                 
+                 self.view.makeToast(responseObject?.message ?? "")
+             }
+         }
+     }
+     */
     
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
