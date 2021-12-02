@@ -14,6 +14,7 @@
 		BF01250527293F68004C15A7 /* DiscountsOB.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF01250427293F68004C15A7 /* DiscountsOB.swift */; };
 		BF06F8F02709CA790074FD09 /* CashManagementVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF06F8EF2709CA790074FD09 /* CashManagementVC.swift */; };
 		BF06F8F22709CAF40074FD09 /* CashManagementTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF06F8F12709CAF40074FD09 /* CashManagementTVC.swift */; };
+		BF09D7B5275370FD0080CD80 /* DesignableTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF09D7B4275370FD0080CD80 /* DesignableTableView.swift */; };
 		BF12FA2C27316AAE00FDCCBE /* PinCodeOB.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF12FA2B27316AAE00FDCCBE /* PinCodeOB.swift */; };
 		BF1393B12712CB4E0038EBD8 /* PasswordKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF1393B02712CB4E0038EBD8 /* PasswordKeyboard.xib */; };
 		BF1393B32712CB5A0038EBD8 /* PasswordKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1393B22712CB5A0038EBD8 /* PasswordKeyboard.swift */; };
@@ -67,6 +68,7 @@
 		BF44C4182709B3D3005BFD0D /* CustomersTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF44C4172709B3D3005BFD0D /* CustomersTVC.swift */; };
 		BF44C41A2709B568005BFD0D /* AddNewCustomersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF44C4192709B568005BFD0D /* AddNewCustomersVC.swift */; };
 		BF44C41C2709B81F005BFD0D /* EditNewCustomersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF44C41B2709B81F005BFD0D /* EditNewCustomersVC.swift */; };
+		BF44F96C274FB282008C029F /* OrderDetailsFromTicketOB.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF44F96B274FB281008C029F /* OrderDetailsFromTicketOB.swift */; };
 		BF4C5E5F270C7C7600C9E571 /* TransferTicketsToEmployeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4C5E5E270C7C7600C9E571 /* TransferTicketsToEmployeVC.swift */; };
 		BF4C5E62270C7C9300C9E571 /* TransferTicketsToEmployeTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4C5E60270C7C9300C9E571 /* TransferTicketsToEmployeTVC.swift */; };
 		BF4C5E63270C7C9300C9E571 /* TransferTicketsToEmployeTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF4C5E61270C7C9300C9E571 /* TransferTicketsToEmployeTVC.xib */; };
@@ -154,6 +156,7 @@
 		BFBAECE0274E568A00C11B19 /* TaxOB.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBAECDF274E568A00C11B19 /* TaxOB.swift */; };
 		BFBAECE2274E77BB00C11B19 /* ShowDiscountFromTicketVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBAECE1274E77BB00C11B19 /* ShowDiscountFromTicketVC.swift */; };
 		BFBAECE4274E782500C11B19 /* ShowDiscountFromTicketTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBAECE3274E782500C11B19 /* ShowDiscountFromTicketTVC.swift */; };
+		BFBFE37A27564BC50024F0A5 /* ReceiptOB.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBFE37927564BC50024F0A5 /* ReceiptOB.swift */; };
 		BFC02FEA270AFAA1002CFEC1 /* PayTicketVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC02FE9270AFAA1002CFEC1 /* PayTicketVC.swift */; };
 		BFC02FED270AFADA002CFEC1 /* PayTicketTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC02FEB270AFADA002CFEC1 /* PayTicketTVC.swift */; };
 		BFC02FEE270AFADA002CFEC1 /* PayTicketTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFC02FEC270AFADA002CFEC1 /* PayTicketTVC.xib */; };
@@ -228,6 +231,7 @@
 		BFF60B3F274BBF0300C5E38C /* AddNewCustomerToTicketTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFF60B3D274BBF0300C5E38C /* AddNewCustomerToTicketTVC.xib */; };
 		BFFE09CC272687A600C2BE69 /* ColorsOB.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFE09CB272687A600C2BE69 /* ColorsOB.swift */; };
 		BFFE09CE272696FD00C2BE69 /* CategorieOB.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFE09CD272696FD00C2BE69 /* CategorieOB.swift */; };
+		BFFE815F27579D9E0030558F /* AddNewPrice2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFE815E27579D9E0030558F /* AddNewPrice2VC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -260,6 +264,7 @@
 		BF01250427293F68004C15A7 /* DiscountsOB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountsOB.swift; sourceTree = "<group>"; };
 		BF06F8EF2709CA790074FD09 /* CashManagementVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashManagementVC.swift; sourceTree = "<group>"; };
 		BF06F8F12709CAF40074FD09 /* CashManagementTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashManagementTVC.swift; sourceTree = "<group>"; };
+		BF09D7B4275370FD0080CD80 /* DesignableTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableTableView.swift; sourceTree = "<group>"; };
 		BF12FA2B27316AAE00FDCCBE /* PinCodeOB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeOB.swift; sourceTree = "<group>"; };
 		BF1393B02712CB4E0038EBD8 /* PasswordKeyboard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PasswordKeyboard.xib; sourceTree = "<group>"; };
 		BF1393B22712CB5A0038EBD8 /* PasswordKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordKeyboard.swift; sourceTree = "<group>"; };
@@ -313,6 +318,7 @@
 		BF44C4172709B3D3005BFD0D /* CustomersTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomersTVC.swift; sourceTree = "<group>"; };
 		BF44C4192709B568005BFD0D /* AddNewCustomersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewCustomersVC.swift; sourceTree = "<group>"; };
 		BF44C41B2709B81F005BFD0D /* EditNewCustomersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNewCustomersVC.swift; sourceTree = "<group>"; };
+		BF44F96B274FB281008C029F /* OrderDetailsFromTicketOB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailsFromTicketOB.swift; sourceTree = "<group>"; };
 		BF4C5E5E270C7C7600C9E571 /* TransferTicketsToEmployeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferTicketsToEmployeVC.swift; sourceTree = "<group>"; };
 		BF4C5E60270C7C9300C9E571 /* TransferTicketsToEmployeTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferTicketsToEmployeTVC.swift; sourceTree = "<group>"; };
 		BF4C5E61270C7C9300C9E571 /* TransferTicketsToEmployeTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransferTicketsToEmployeTVC.xib; sourceTree = "<group>"; };
@@ -400,6 +406,7 @@
 		BFBAECDF274E568A00C11B19 /* TaxOB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxOB.swift; sourceTree = "<group>"; };
 		BFBAECE1274E77BB00C11B19 /* ShowDiscountFromTicketVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDiscountFromTicketVC.swift; sourceTree = "<group>"; };
 		BFBAECE3274E782500C11B19 /* ShowDiscountFromTicketTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDiscountFromTicketTVC.swift; sourceTree = "<group>"; };
+		BFBFE37927564BC50024F0A5 /* ReceiptOB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptOB.swift; sourceTree = "<group>"; };
 		BFC02FE9270AFAA1002CFEC1 /* PayTicketVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayTicketVC.swift; sourceTree = "<group>"; };
 		BFC02FEB270AFADA002CFEC1 /* PayTicketTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayTicketTVC.swift; sourceTree = "<group>"; };
 		BFC02FEC270AFADA002CFEC1 /* PayTicketTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PayTicketTVC.xib; sourceTree = "<group>"; };
@@ -480,6 +487,7 @@
 		BFF60B3D274BBF0300C5E38C /* AddNewCustomerToTicketTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddNewCustomerToTicketTVC.xib; sourceTree = "<group>"; };
 		BFFE09CB272687A600C2BE69 /* ColorsOB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsOB.swift; sourceTree = "<group>"; };
 		BFFE09CD272696FD00C2BE69 /* CategorieOB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorieOB.swift; sourceTree = "<group>"; };
+		BFFE815E27579D9E0030558F /* AddNewPrice2VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPrice2VC.swift; sourceTree = "<group>"; };
 		F715A2277526B8092DC2E623 /* Pods_SPOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SPOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -694,6 +702,8 @@
 				BF83D76E274A594F00ECEC20 /* AddToTicketOB.swift */,
 				BF83D770274A66AA00ECEC20 /* TicketDetailsOB.swift */,
 				BFBAECDF274E568A00C11B19 /* TaxOB.swift */,
+				BF44F96B274FB281008C029F /* OrderDetailsFromTicketOB.swift */,
+				BFBFE37927564BC50024F0A5 /* ReceiptOB.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -953,6 +963,7 @@
 				BF3831002725571400480DED /* LoadingButton.swift */,
 				BF6130C9272E94F4004AB1B1 /* CustomBackButton.swift */,
 				BFD3789227410B3F000695C9 /* CustomTextView.swift */,
+				BF09D7B4275370FD0080CD80 /* DesignableTableView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1063,6 +1074,7 @@
 				BF17EB87270C440A00D93D78 /* CustomTicketVC.swift */,
 				BFE620D4273BF20C00B1D627 /* AddNewPriceVC.swift */,
 				BF6F563A2744F3C40051B8BC /* HomeItemDetailsV2VC.swift */,
+				BFFE815E27579D9E0030558F /* AddNewPrice2VC.swift */,
 			);
 			path = HomeVC;
 			sourceTree = "<group>";
@@ -1446,6 +1458,7 @@
 				BFC73C4827035E3600C64EE0 /* LoginVC.swift in Sources */,
 				BF2B3FA1270B2BC700CEFE7E /* SplitVC.swift in Sources */,
 				BFE2ACAA272532CF00A5AEC0 /* L102Language.swift in Sources */,
+				BFFE815F27579D9E0030558F /* AddNewPrice2VC.swift in Sources */,
 				BFFE09CC272687A600C2BE69 /* ColorsOB.swift in Sources */,
 				BF38310B2725886A00480DED /* SelectPOSTVC.swift in Sources */,
 				BF1393B32712CB5A0038EBD8 /* PasswordKeyboard.swift in Sources */,
@@ -1477,6 +1490,7 @@
 				BF9869CB2705D78300E86045 /* AllItemsVC.swift in Sources */,
 				BFC5B5902704A7BF0009665C /* CustomTabBar.swift in Sources */,
 				BF29D0C6270498280075D667 /* ReceiptsSectionTVC.swift in Sources */,
+				BFBFE37A27564BC50024F0A5 /* ReceiptOB.swift in Sources */,
 				BFBAECE0274E568A00C11B19 /* TaxOB.swift in Sources */,
 				BF83D76F274A594F00ECEC20 /* AddToTicketOB.swift in Sources */,
 				BF286EF0272A727A00579068 /* CreateNewItemTestVC.swift in Sources */,
@@ -1548,6 +1562,7 @@
 				BFD85B2E2709DE5100FBED53 /* HomeColorCVC.swift in Sources */,
 				BF20D06B2705B9B800ADC519 /* ItemsVC.swift in Sources */,
 				BF269FBC270C68590032B58B /* TransferTicketsVC.swift in Sources */,
+				BF44F96C274FB282008C029F /* OrderDetailsFromTicketOB.swift in Sources */,
 				BF62C8752726DD0400297515 /* ItemsOB.swift in Sources */,
 				BFC73C3A27035D5500C64EE0 /* UINavigationItem+Extension.swift in Sources */,
 				BFC02FED270AFADA002CFEC1 /* PayTicketTVC.swift in Sources */,
@@ -1576,6 +1591,7 @@
 				BF6130CC272EC1A9004AB1B1 /* ImagePickerCamera.swift in Sources */,
 				BF8F0C972741249000D85FB9 /* Terms&ConditionsVC.swift in Sources */,
 				BF06F8F22709CAF40074FD09 /* CashManagementTVC.swift in Sources */,
+				BF09D7B5275370FD0080CD80 /* DesignableTableView.swift in Sources */,
 				BF790F1527059D7C008000FF /* EditPrinterVC.swift in Sources */,
 				BFD07FFC270C98C900653457 /* TopListVC.swift in Sources */,
 				BF38310527257C7800480DED /* SelectStoreTVC.swift in Sources */,
@@ -1795,7 +1811,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = U52F2M25LT;
 				INFOPLIST_FILE = SPOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1817,7 +1833,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = U52F2M25LT;
 				INFOPLIST_FILE = SPOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

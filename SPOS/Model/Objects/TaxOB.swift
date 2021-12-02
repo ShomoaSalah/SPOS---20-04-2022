@@ -42,3 +42,13 @@ class Tax: Codable {
     }
 }
 
+
+
+class DiscountTicket: Codable {
+    let discounts: [DiscountsOB]?
+
+    init(discounts: [DiscountsOB]?) {
+        self.discounts = discounts
+    }
+}
+

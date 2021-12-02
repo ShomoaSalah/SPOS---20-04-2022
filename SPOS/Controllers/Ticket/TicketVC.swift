@@ -9,25 +9,6 @@ import UIKit
 import SVProgressHUD
 import SDWebImage
 
-@IBDesignable
-class DesignableTableView: UITableView {
-
-    @IBInspectable var backgroundImage: UIImage? {
-        didSet {
-            if let image = backgroundImage {
-                let backgroundImage = UIImageView(image: image)
-                backgroundImage.contentMode = .scaleToFill
-                //UIViewContentMode.ScaleToFill
-                backgroundImage.clipsToBounds = false
-                self.backgroundView = backgroundImage
-            }
-        }
-    }
-
-}
-
-
-
 class TicketVC: BaseVC {
     
     @IBOutlet weak var customerDeleteBtn: UIButton!
@@ -35,8 +16,6 @@ class TicketVC: BaseVC {
     @IBOutlet weak var customerPhoneLbl: UILabel!
     @IBOutlet weak var customerNameLbl: UILabel!
     @IBOutlet weak var customerImage: UIImageView!
-    
-    
     @IBOutlet weak var totalPriceLbl: UILabel!
     @IBOutlet weak var headerTV: UIView!
     @IBOutlet weak var taxIncludedLbl: UILabel!
@@ -55,6 +34,7 @@ class TicketVC: BaseVC {
     var ticketID = 0
     var orderArray = [OrderOB]()
     var customerObjecr: CustomersOB?
+    var diningOptionId = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,16 +44,17 @@ class TicketVC: BaseVC {
         initCV()
         addRightButton()
         
-    print("ticketID \(ticketID)")
+        print("ticketID \(ticketID)")
         
         if ticketID == 0 {
+            
             ticketEmptyView.isHidden = false
-        }else {
-           // ticketEmptyView.isHidden = true
-            //showTicketDetails
+            
+        } else {
+            
             if UserHelper.isLogin() {
                 storeID = UserHelper.lodeUser()!.storeID ?? 0
-                showTicketDetails(store_id: storeID, ticket_id: ticketID)
+                showDiningOptionsBy(store_id: storeID)
             }
             
         }
@@ -123,7 +104,7 @@ class TicketVC: BaseVC {
     }
     
     @IBAction func showTaxesList(_ sender: UIButton) {
-       
+        
         let vc = UIStoryboard.init(name: "TicketSB", bundle: Bundle.main).instantiateViewController(withIdentifier: "ShowTaxFromTicketVC") as! ShowTaxFromTicketVC
         vc.ticketID = self.ticketID //ticketID
         self.navigationItem.hideBackWord()
@@ -132,6 +113,13 @@ class TicketVC: BaseVC {
     
     
     @IBAction func showDiscountList(_ sender: UIButton) {
+        //ShowDiscountFromTicketVC
+        
+        let vc = UIStoryboard.init(name: "TicketSB", bundle: Bundle.main).instantiateViewController(withIdentifier: "ShowDiscountFromTicketVC") as! ShowDiscountFromTicketVC
+        vc.ticketID = self.ticketID //ticketID
+        self.navigationItem.hideBackWord()
+        self.navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     //didTapOnAddNewClient
@@ -160,7 +148,7 @@ class TicketVC: BaseVC {
         super.viewDidAppear(true)
         addNotificationObserver(.openTicket, #selector(openTicket))
         addNotificationObserver(.reloadTicketDetails, #selector(reloadTicketDetails))
-        //reloadTicketDetails
+        
     }
     
     @objc func openTicket(){
@@ -168,6 +156,7 @@ class TicketVC: BaseVC {
         ticketEmptyView.isHidden = true
         
     }
+    
     @objc func reloadTicketDetails(){
         print("reloadTicketDetails")
         
@@ -175,10 +164,14 @@ class TicketVC: BaseVC {
             ticketEmptyView.isHidden = false
         }else {
             ticketEmptyView.isHidden = true
-            //showTicketDetails
+            
             if UserHelper.isLogin() {
                 storeID = UserHelper.lodeUser()!.storeID ?? 0
-                showTicketDetails(store_id: storeID, ticket_id: ticketID)
+                showDiningOptionsBy(store_id: storeID)
+                
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+                //                    showTicketDetails(store_id: storeID, ticket_id: ticketID, dining_option_id: diningOptionId)
+                //                }
             }
             
         }
@@ -186,7 +179,8 @@ class TicketVC: BaseVC {
     
 }
 
-//MARK: - Table View
+//MARK: - Ext. TableViewDelegate, TableViewDataSource
+
 extension TicketVC: UITableViewDelegate, UITableViewDataSource {
     
     func initTV()  {
@@ -204,14 +198,45 @@ extension TicketVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TicketTVC", for: indexPath) as! TicketTVC
         cell.selectionStyle = .none
-        
+        print("ROWS 1 \(orderArray.count)")
         let item = orderArray[indexPath.row]
         cell.configure(data: item)
         
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let item = orderArray[indexPath.row]
+        
+        let vc = UIStoryboard.init(name: "HomeDetailsSB", bundle: Bundle.main).instantiateViewController(withIdentifier: "HomeItemDetailsV2VC") as! HomeItemDetailsV2VC
+        
+        vc.orderId = item.id ?? 0
+        vc.storeID = self.storeID
+        vc.fromTicket = true
+        
+        self.navigationItem.hideBackWord()
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        
+        
+        if editingStyle == .delete {
+            
+            deleteOrderFromTicket(indexPathRow: indexPath.row, indexPath: indexPath)
+            
+            
+        }
+        
+        
+    }
 }
 
 //MARK: - Collection View
@@ -221,11 +246,12 @@ extension TicketVC: UICollectionViewDataSource, UICollectionViewDelegate {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "TicketCVC", bundle: nil), forCellWithReuseIdentifier: "TicketCVC")
+        collectionView.reloadData()
     }
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return  diningOptionArray.count
+        return  diningOptionArray.count //diningOptionArray
     }
     
     
@@ -233,6 +259,14 @@ extension TicketVC: UICollectionViewDataSource, UICollectionViewDelegate {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TicketCVC", for: indexPath) as! TicketCVC
         let item = diningOptionArray[indexPath.row]
         cell.titleLbl.text = item.name ?? ""
+        print("ROWS 2 \(diningOptionArray.count)")
+        
+        diningOptionId = diningOptionArray[0].id ?? 0
+        print("diningOptionId 1 >> \(diningOptionId)")
+        
+        //        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+        showTicketDetails(store_id: storeID, ticket_id: ticketID, dining_option_id: diningOptionId)
+        //        }
         
         if indexPath.row == 0 {
             cell.isSelected = true
@@ -253,7 +287,9 @@ extension TicketVC: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! TicketCVC
-        
+        let item = diningOptionArray[indexPath.row]
+        diningOptionId = item.id ?? 0
+        print("diningOptionId 2 >> \(diningOptionId)")
         cell.setSelected(isSelected: true)
         //  let item = imagesColor[indexPath.row]
         //        aqarSelectedID = item.uuid ?? ""
@@ -287,11 +323,11 @@ extension TicketVC: UICollectionViewDataSource, UICollectionViewDelegate {
 
 extension TicketVC {
     
-    func showTicketDetails(store_id: Int, ticket_id: Int) {
+    func showTicketDetails(store_id: Int, ticket_id: Int, dining_option_id: Int) {
         SVProgressHUD.show()
         
         
-        let requestUrl = APIConstant.showTicket + "?store_id=\(store_id)&ticket_id=\(ticket_id)"
+        let requestUrl = APIConstant.showTicket + "?store_id=\(store_id)&ticket_id=\(ticket_id)&dining_option_id=\(dining_option_id)"
         print("requestUrl show Ticket \(requestUrl)")
         
         API.startRequest(url: requestUrl, method: .get, parameters: nil, viewCon: self) { [self] status, responseObject in
@@ -300,12 +336,18 @@ extension TicketVC {
                 
                 ticketEmptyView.isHidden = true
                 do{
-                    let object = try JSONDecoder().decode(TicketDetailsOB.self, from: responseObject?.data as! Data)
-                    diningOptionArray = object.diningOptions ?? [DiningOptionOB]()
+                    let object = try! JSONDecoder().decode(TicketDetailsOB.self, from: responseObject?.data as! Data)
+                    
+                    
+                    orderArray = object.orders ?? [OrderOB]()
+                    tableView.reloadData()
+                    
                     
                     if object.customer == nil{
+                        
                         headerTV.isHidden = true
                         tableView.layoutTableHeaderView()
+                        
                     }else {
                         
                         customerNameLbl.text = object.customer?.name ?? ""
@@ -318,9 +360,6 @@ extension TicketVC {
                     }
                     
                     
-                    
-                    orderArray = object.orders ?? [OrderOB]()
-                    tableView.reloadData()
                     
                     totalLbl.text = object.total
                     taxLbl.text = object.taxesValue
@@ -336,7 +375,6 @@ extension TicketVC {
                     
                     if object.containsTaxes ?? false {
                         taxView.isHidden = false
-                        
                         if object.taxIncluded ?? false {
                             taxLbl.text = ""
                             taxIncludedLbl.isHidden = false
@@ -349,7 +387,7 @@ extension TicketVC {
                     }
                     
                     
-                    collectionView.reloadData()
+                    
                     
                 }catch{
                     self.view.makeToast(responseObject?.message ?? "")
@@ -362,7 +400,6 @@ extension TicketVC {
         }
     }
     
-    
     @objc func selectAnotherCustomerToTicket(_ sender: UIButton) {
         //sender.tag == ID
         //addOrEditCustomerTicket
@@ -374,11 +411,9 @@ extension TicketVC {
     }
     
     @objc func removeCustomerFromTicket(_ sender: UIButton) {
-        //sender.tag == ID
         
         submitRemoveCustomerFromTicket(ticket_id: ticketID)
     }
-    
     
     func getProfile(pos_id: Int)  {
         
@@ -398,10 +433,12 @@ extension TicketVC {
                     let object = try JSONDecoder().decode(UserOB.self, from: responesObject?.data as! Data)
                     
                     if object.isDiningOption! {
-                        headerTV.isHidden = false
+                        collectionView.isHidden = false
+                        //                        headerTV.isHidden = false
                         tableView.layoutTableHeaderView()
                     }else {
-                        headerTV.isHidden = true
+                        //                        headerTV.isHidden = true
+                        collectionView.isHidden = true
                         tableView.layoutTableHeaderView()
                     }
                     
@@ -458,7 +495,7 @@ extension TicketVC {
                 self.view.makeToast(responesObject?.message)
                 headerTV.isHidden = true
                 tableView.layoutTableHeaderView()
-             
+                
                 
                 
             }
@@ -469,5 +506,76 @@ extension TicketVC {
             
         }
     }
+    
+    func showDiningOptionsBy(store_id: Int)  {
+        
+        let requestUrl = APIConstant.showDiningOptions + "?store_id=\(store_id)"
+        print("requestUrl show Dining Options \(requestUrl)")
+        
+        SVProgressHUD.show()
+        
+        API.startRequest(url: requestUrl, method: .get, parameters: nil, viewCon: self) { [self] (status, responesObject) in
+            
+            
+            if status {
+                
+                do{
+                    
+                    let object = try JSONDecoder().decode([DiningOptionOB].self, from: responesObject?.data as! Data)
+                    
+                    diningOptionArray = object
+                    initCV()
+                    
+                    
+                    
+                    
+                    
+                }catch{
+                    self.navigationController?.view.makeToast(error.localizedDescription)
+                    print(error.localizedDescription)
+                }
+                
+                
+            }
+            
+            else{
+                self.navigationController?.view.makeToast((responesObject?.message!)!)
+            }
+            
+        }
+    }
+    
+    
+    
+    func deleteOrderFromTicket(indexPathRow: Int, indexPath: IndexPath)  {
+        
+        
+        var orderId = 0
+        let item = orderArray[indexPathRow]
+        
+        orderId = item.id ?? 0
+        
+        let requestUrl = APIConstant.deleteOrderFromTicket + "?order_id=\(orderId)"
+        print("requestUrl delete Order From Ticket \(requestUrl)")
+        
+        SVProgressHUD.show()
+        
+        API.startRequest(url: requestUrl, method: .delete, parameters: nil, viewCon: self) { [self] (status, responesObject) in
+            
+            if status {
+                
+                orderArray.remove(at: indexPathRow)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                
+//                self.view.makeToast(responesObject?.message)
+            }
+            
+            else{
+                self.navigationController?.view.makeToast((responesObject?.message!)!)
+            }
+            
+        }
+    }
+    
     
 }

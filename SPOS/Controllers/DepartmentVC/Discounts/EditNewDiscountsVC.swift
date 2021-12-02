@@ -9,14 +9,11 @@ import UIKit
 import SVProgressHUD
 
 class EditNewDiscountsVC: BaseVC {
-
     
     @IBOutlet weak var percentageTitleLbl: UILabel!
     @IBOutlet weak var percentageView: UIView!
     @IBOutlet weak var priceTitleLbl: UILabel!
     @IBOutlet weak var priceView: UIView!
-    
-    
     @IBOutlet weak var amountTF: UITextField!
     @IBOutlet weak var nameTF: UITextField!
     
@@ -26,7 +23,7 @@ class EditNewDiscountsVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         print("storeID \(storeID)")
         setData()
         self.title = "تعديل خصم"
@@ -63,38 +60,38 @@ class EditNewDiscountsVC: BaseVC {
             break
         }
     }
-
     
     
-   
-   @IBAction func selectOne(_ sender: UIButton) {
-       
-       switch sender.tag {
-       case 0:
-           percentageView.setBorder(width: 0.5, color: "0CA7EE".cgColor)
-           percentageTitleLbl.textColor = "0CA7EE".color
-           
-           priceView.setBorder(width: 0.5, color: "C3C5CE".cgColor)
-           priceTitleLbl.textColor = "C3C5CE".color
-        selectedType = "percentage"
-           break
-  
-       case 1:
-           
-           priceView.setBorder(width: 0.5, color: "0CA7EE".cgColor)
-           priceTitleLbl.textColor = "0CA7EE".color
-           
-           percentageView.setBorder(width: 0.5, color: "C3C5CE".cgColor)
-           percentageTitleLbl.textColor = "C3C5CE".color
-        selectedType = "fixed"
-           break
+    
+    
+    @IBAction func selectOne(_ sender: UIButton) {
         
-       default:
-           break
-       }
- 
-   }
-
+        switch sender.tag {
+        case 0:
+            percentageView.setBorder(width: 0.5, color: "0CA7EE".cgColor)
+            percentageTitleLbl.textColor = "0CA7EE".color
+            
+            priceView.setBorder(width: 0.5, color: "C3C5CE".cgColor)
+            priceTitleLbl.textColor = "C3C5CE".color
+            selectedType = "percentage"
+            break
+            
+        case 1:
+            
+            priceView.setBorder(width: 0.5, color: "0CA7EE".cgColor)
+            priceTitleLbl.textColor = "0CA7EE".color
+            
+            percentageView.setBorder(width: 0.5, color: "C3C5CE".cgColor)
+            percentageTitleLbl.textColor = "C3C5CE".color
+            selectedType = "fixed"
+            break
+            
+        default:
+            break
+        }
+        
+    }
+    
     @IBAction func submitDelete(_ sender: UIButton) {
         deleteDiscount(discountID: discountsOB?.id ?? 0)
     }
@@ -139,7 +136,7 @@ extension EditNewDiscountsVC {
         
     }
     
-   
+    
     func editDiscount(discount_id: Int, amount: String, type: String, name: String) {
         
         let urlRequest = APIConstant.editDiscount
@@ -167,7 +164,7 @@ extension EditNewDiscountsVC {
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.navigationController?.popViewController(animated: true)
-
+                    
                 }
             }
             

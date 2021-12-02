@@ -15,6 +15,12 @@ extension Notification.Name {
     static let reloadDiscounts = Notification.Name("reloadDiscounts")
     static let reloadItems = Notification.Name("reloadItems")
     static let reloadCustomers = Notification.Name("reloadCustomers")
+    
+    
+    static let setVariablePrice = Notification.Name("setVariablePrice")
+    
+    
+    
     static let setBadgeValue = Notification.Name("setBadgeValue")
     
     static let reloadTicketDetails = Notification.Name("reloadTicketDetails")

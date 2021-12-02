@@ -35,7 +35,7 @@ class EditNewCategoriesVC: BaseVC {
         LoadingButton.startLoading(activityIndicator: loadingIndicator)
 
         
-        self.title = "تعديل الفئة"
+        self.title = "تعديل المجموعة"
         initCV()
         
     }

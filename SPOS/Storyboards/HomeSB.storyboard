@@ -61,6 +61,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="الإيصالات" id="ElE-AZ-i9Z"/>
                     <connections>
+                        <outlet property="searchView" destination="2z2-cG-g5e" id="Y0E-bc-DgV"/>
                         <outlet property="tableView" destination="6wq-5s-kO2" id="jtG-Su-qIf"/>
                     </connections>
                 </viewController>

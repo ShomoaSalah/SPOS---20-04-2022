@@ -40,22 +40,28 @@ class TicketDetailsOB: Codable {
 }
 
 
-
 // MARK: - DiningOptionOB
 class DiningOptionOB: Codable {
     let id: Int?
-    let name: String?
-    
-    init(id: Int?, name: String?) {
+    let name, diningOptionName: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id, name
+        case diningOptionName = "dining_option_name"
+    }
+
+    init(id: Int?, name: String?, diningOptionName: String?) {
         self.id = id
         self.name = name
+        self.diningOptionName = diningOptionName
     }
 }
 
 
 // MARK: - OrderOB
 class OrderOB: Codable {
-    let id, quantity: Int?
+    let id: Int?
+    let quantity: String?
     let comment: String?
     let itemName, orderPrice: String?
     let variantName, modificationDetailsName: String?
@@ -73,7 +79,7 @@ class OrderOB: Codable {
         case inStock = "in_stock"
     }
     
-    init(id: Int?, quantity: Int?, comment: String?, itemName: String?, orderPrice: String?, variantName: String?, modificationDetailsName: String?, containsDiscount: Bool?, isOutOfStock: Bool?, inStock: Int?) {
+    init(id: Int?, quantity: String?, comment: String?, itemName: String?, orderPrice: String?, variantName: String?, modificationDetailsName: String?, containsDiscount: Bool?, isOutOfStock: Bool?, inStock: Int?) {
         self.id = id
         self.quantity = quantity
         self.comment = comment

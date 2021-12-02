@@ -41,7 +41,7 @@ class AddNewCategoriesVC: BaseVC {
         navigationItem.leftBarButtonItems = CustomBackButton.createWithImage(image: UIImage(named: "arrow_back_english")!, color: .clear, target: self, action: #selector(btnBackTapped))
         
         getColors()
-        self.title = "إضافة فئة جديد"
+        self.title = "إضافة مجموعة جديد"
         initCV()
         
     }

@@ -92,11 +92,22 @@ class APIConstant {
     static let clearTicket = posURL + "/tickets/delete?ticket_id="
     static let addOrEditCustomerTicket = posURL + "/tickets/add_customer"
     static let removeCustomerFromTicket = posURL + "/tickets/remove_customer?ticket_id="
-
+    static let showOrderFromTicket = posURL + "/tickets/show_item"
+    static let editOrderFromTicket = posURL + "/tickets/edit_item"
+    static let showDiningOptions = posURL + "/dining_options"
+    static let deleteOrderFromTicket = posURL + "/tickets/delete_item"
+    
+    
+    
+    
+    
     static let getTaxesFromTicket = posURL + "/tickets/get_taxes?ticket_id="
     static let deleteTaxesFromTicket = posURL + "/tickets/delete_taxes"
+    static let getDiscountFromTicket = posURL + "/tickets/get_discounts?ticket_id="
+    static let deleteDiscountFromTicket = posURL + "/tickets/delete_discounts"
     
-  
+    
+   
     
     //CUSTOMERS
     static let getCustomers = posURL + "/customers"
@@ -105,5 +116,10 @@ class APIConstant {
     static let editCustomers = posURL + "/customers/edit"
     static let deleteCustomers = posURL + "/customers/delete?customer_id="
     
+    
+    
+    //RECEIPTS
+    static let getReceipts = posURL + "/tickets/receipts"
+   
 }
 

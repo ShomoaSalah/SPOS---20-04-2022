@@ -32,7 +32,7 @@ class TicketTVC: UITableViewCell {
     private var item: OrderOB! {
         didSet{
             itemNameLbl.text = item.itemName ?? ""
-            itemQantityLbl.text = "\(item.quantity ?? 0) x"
+            itemQantityLbl.text = "\(item.quantity ?? "") x"
             
             
             

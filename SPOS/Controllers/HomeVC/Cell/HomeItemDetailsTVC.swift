@@ -14,20 +14,30 @@ class HomeItemDetailsTVC: UITableViewCell {
     @IBOutlet weak var containerVieww: UIView!
     
    
+    var moreCallBack:((Int,String,IndexPath)->Void)? // String > Price, Int > IndexPath.row
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+       
+        if selected {
+            containerVieww.backgroundColor = "0CA7EE".color.withAlphaComponent(0.05)
+            containerVieww.setBorder(width: 0.5, color: "0CA7EE".cgColor)
+            countLbl.textColor = "0CA7EE".color
+            descriptionLbl.textColor = "0CA7EE".color
+        } else {
+            containerVieww.backgroundColor = .white
+            containerVieww.setBorder(width: 0.5, color: "C3C5CE".cgColor)
+            countLbl.textColor = .black
+            descriptionLbl.textColor = .black
+        }
+        
     }
     
-    
- 
     
     
 }

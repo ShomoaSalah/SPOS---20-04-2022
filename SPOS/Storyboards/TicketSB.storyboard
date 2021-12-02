@@ -22,10 +22,10 @@
                                 <rect key="frame" x="0.0" y="92" width="414" height="352"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ii9-PS-Zje">
-                                <rect key="frame" x="0.0" y="52" width="414" height="844"/>
+                                <rect key="frame" x="0.0" y="52" width="414" height="714"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Boy-qz-czJ">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="844"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="714"/>
                                         <subviews>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LDe-ce-9c6">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="45"/>
@@ -42,7 +42,7 @@
                                                 <cells/>
                                             </collectionView>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GIK-8X-jbR" customClass="DesignableTableView" customModule="SPOS" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="45" width="414" height="799"/>
+                                                <rect key="frame" x="0.0" y="45" width="414" height="669"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <view key="tableHeaderView" contentMode="scaleToFill" id="caP-Xl-Yej" userLabel="Header">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="106"/>
@@ -327,11 +327,9 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="Boy-qz-czJ" firstAttribute="leading" secondItem="ii9-PS-Zje" secondAttribute="leading" id="EU0-y6-sKk"/>
-                                    <constraint firstAttribute="bottom" secondItem="Boy-qz-czJ" secondAttribute="bottom" id="Ghl-E9-4E6"/>
-                                    <constraint firstAttribute="bottom" secondItem="Boy-qz-czJ" secondAttribute="bottom" id="GxM-Ot-kO9"/>
+                                    <constraint firstAttribute="bottom" secondItem="Boy-qz-czJ" secondAttribute="bottom" id="NuY-3i-ac4"/>
                                     <constraint firstAttribute="trailing" secondItem="Boy-qz-czJ" secondAttribute="trailing" id="RJp-c1-ZFc"/>
                                     <constraint firstItem="Boy-qz-czJ" firstAttribute="top" secondItem="ii9-PS-Zje" secondAttribute="top" id="XAk-67-MEd"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="844" id="dgG-77-5Jf"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="XyR-Y1-tqH">
@@ -409,9 +407,12 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="emB-dp-PHh"/>
+                                </constraints>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nS7-Yh-szr">
-                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <rect key="frame" x="0.0" y="89" width="414" height="807"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="31" translatesAutoresizingMaskIntoConstraints="NO" id="uFb-b5-YBd">
                                         <rect key="frame" x="105" y="128" width="204" height="253"/>
@@ -432,7 +433,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="xdV-yK-f1F">
-                                        <rect key="frame" x="44" y="760" width="326" height="52"/>
+                                        <rect key="frame" x="44" y="715" width="326" height="52"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VyS-hY-mqe">
                                                 <rect key="frame" x="0.0" y="0.0" width="157" height="52"/>
@@ -518,16 +519,16 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="nS7-Yh-szr" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="2rr-xO-yuM"/>
+                            <constraint firstItem="XyR-Y1-tqH" firstAttribute="top" secondItem="ii9-PS-Zje" secondAttribute="bottom" constant="4" id="5h5-hn-Sta"/>
                             <constraint firstItem="uWH-BT-oBm" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="48" id="70K-ap-IkX"/>
                             <constraint firstItem="ii9-PS-Zje" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="8" id="CCN-RA-Zyb"/>
-                            <constraint firstAttribute="bottom" secondItem="ii9-PS-Zje" secondAttribute="bottom" id="Gil-Oh-mOQ"/>
                             <constraint firstAttribute="bottom" secondItem="nS7-Yh-szr" secondAttribute="bottom" id="IPF-lH-jDi"/>
                             <constraint firstItem="ii9-PS-Zje" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="OmM-TQ-jsb"/>
-                            <constraint firstItem="nS7-Yh-szr" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="Ugs-Wj-8W2"/>
                             <constraint firstItem="uWH-BT-oBm" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="b6d-91-7c4"/>
                             <constraint firstItem="ii9-PS-Zje" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="bUZ-a6-tWF"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="XyR-Y1-tqH" secondAttribute="bottom" constant="40" id="cHw-rb-hNY"/>
                             <constraint firstItem="XyR-Y1-tqH" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="cof-38-alB"/>
+                            <constraint firstItem="nS7-Yh-szr" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="45" id="e5G-8b-8zx"/>
                             <constraint firstItem="nS7-Yh-szr" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="nPR-C3-PVA"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="uWH-BT-oBm" secondAttribute="trailing" id="pH1-hv-1rp"/>
                         </constraints>
@@ -2203,10 +2204,10 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="taxDeleteBtn" destination="GlX-Ut-apm" id="Y29-lc-tRq"/>
-                                            <outlet property="taxDescriptionLbl" destination="r1f-9h-XLm" id="TPs-ee-XNa"/>
-                                            <outlet property="taxNameLbl" destination="xHE-oT-MQg" id="fqb-BJ-Vb0"/>
-                                            <outlet property="taxPercentageLbl" destination="LvJ-nH-cab" id="5oh-GO-Gbu"/>
+                                            <outlet property="deleteBtn" destination="GlX-Ut-apm" id="SuO-Ne-iQL"/>
+                                            <outlet property="discountPriceLbl" destination="LvJ-nH-cab" id="Qdy-OX-BEd"/>
+                                            <outlet property="discountTitleLbl" destination="xHE-oT-MQg" id="1zP-0N-cwy"/>
+                                            <outlet property="discoutItemCountLbl" destination="r1f-9h-XLm" id="7jj-nv-2fG"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -2222,7 +2223,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="tableView" destination="d8i-ms-QaR" id="HHm-UZ-YC4"/>
+                        <outlet property="tableView" destination="d8i-ms-QaR" id="RhQ-ia-WtB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cGi-0i-Z5p" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

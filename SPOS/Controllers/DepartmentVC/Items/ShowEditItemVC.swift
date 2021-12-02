@@ -86,7 +86,7 @@ class ShowEditItemVC: BaseVC {
         print("colorSelectedID \(colorSelectedID)")
         self.imagePicker = ImagePickerCamera(presentationController: self, delegate: self)
         
-        self.title = "تعديل العنصر"
+        self.title = "تعديل الصنف"
         
         if UserHelper.isLogin() {
             storeID = UserHelper.lodeUser()!.storeID ?? 0

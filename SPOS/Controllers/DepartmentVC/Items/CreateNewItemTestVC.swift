@@ -76,7 +76,7 @@ class CreateNewItemTestVC: BaseVC {
         
         self.imagePicker = ImagePickerCamera(presentationController: self, delegate: self)
         
-        self.title = "إضافة عنصر جديد"
+        self.title = "إضافة صنف جديد"
         
         if UserHelper.isLogin() {
             storeID = UserHelper.lodeUser()!.storeID ?? 0
@@ -751,11 +751,6 @@ extension CreateNewItemTestVC: ImagePickerDelegate {
         //
     }
     
-  
-    
-   
-    
-    
     func didSelect(image: UIImage?) {
         
         if image != nil {
@@ -764,9 +759,7 @@ extension CreateNewItemTestVC: ImagePickerDelegate {
         }else {
             return
         }
-        
-        
-        
+         
     }
     
     

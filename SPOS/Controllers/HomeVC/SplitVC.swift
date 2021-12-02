@@ -30,6 +30,8 @@ class SplitVC: BaseVC {
         countLbl.text = "\(count)"
         tableView.reloadData()
     }
+    
+    
     @IBAction func countMinus(_ sender: UIButton) {
         
         if count >= 0 {

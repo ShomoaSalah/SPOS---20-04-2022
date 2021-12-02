@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -32,19 +32,18 @@
                                 <rect key="frame" x="16" y="12.5" width="45" height="45"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fnc-ab-lRd">
-                                        <rect key="frame" x="10.5" y="10.5" width="24" height="24"/>
-                                        <color key="backgroundColor" red="1" green="0.34901960780000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="24" id="lsU-Ob-Vi8"/>
-                                            <constraint firstAttribute="height" constant="24" id="roV-WV-XKk"/>
-                                        </constraints>
+                                        <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.76470588240000004" green="0.7725490196" blue="0.80784313730000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="08P-xK-lMd"/>
                                     <constraint firstItem="Fnc-ab-lRd" firstAttribute="centerY" secondItem="AqP-Y3-Uak" secondAttribute="centerY" id="KRj-k7-lzj"/>
+                                    <constraint firstAttribute="bottom" secondItem="Fnc-ab-lRd" secondAttribute="bottom" id="Odw-iC-nEW"/>
+                                    <constraint firstItem="Fnc-ab-lRd" firstAttribute="leading" secondItem="AqP-Y3-Uak" secondAttribute="leading" id="dZd-Xe-F28"/>
+                                    <constraint firstItem="Fnc-ab-lRd" firstAttribute="top" secondItem="AqP-Y3-Uak" secondAttribute="top" id="iWb-Br-J1q"/>
                                     <constraint firstAttribute="width" constant="45" id="myg-Lo-bZm"/>
+                                    <constraint firstAttribute="trailing" secondItem="Fnc-ab-lRd" secondAttribute="trailing" id="nff-Ao-9Aa"/>
                                     <constraint firstItem="Fnc-ab-lRd" firstAttribute="centerX" secondItem="AqP-Y3-Uak" secondAttribute="centerX" id="srl-cz-SWm"/>
                                 </constraints>
                             </view>
@@ -66,16 +65,16 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="lzN-Ch-bjW">
-                                <rect key="frame" x="280" y="11" width="70" height="48"/>
+                                <rect key="frame" x="281" y="11" width="69" height="48"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FC1-AS-Fhv">
-                                        <rect key="frame" x="39" y="0.0" width="31" height="14.5"/>
+                                        <rect key="frame" x="38" y="0.0" width="31" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" name="#202124"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l3z-cJ-MFv">
-                                        <rect key="frame" x="0.0" y="20.5" width="70" height="27.5"/>
+                                        <rect key="frame" x="0.0" y="20.5" width="69" height="27.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <state key="normal" title="المبلغ المسترد">
                                             <color key="titleColor" red="1" green="0.4039215686" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -109,6 +108,11 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="backgroundCircleView" destination="AqP-Y3-Uak" id="PFe-WR-eEl"/>
+                <outlet property="createdTimeLbl" destination="KoD-ET-bbA" id="XBF-Dj-TxE"/>
+                <outlet property="paymentIconImage" destination="Fnc-ab-lRd" id="lo3-dz-ebm"/>
+                <outlet property="receiptNumLbl" destination="FC1-AS-Fhv" id="LY4-TF-Ksz"/>
+                <outlet property="refundBtn" destination="l3z-cJ-MFv" id="eSL-Si-UlJ"/>
+                <outlet property="totalLbl" destination="3Mh-hq-51I" id="dJn-dC-fM8"/>
             </connections>
             <point key="canvasLocation" x="-10" y="169"/>
         </tableViewCell>

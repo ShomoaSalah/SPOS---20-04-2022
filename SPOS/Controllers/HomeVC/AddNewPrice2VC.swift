@@ -1,21 +1,22 @@
 //
-//  AddNewPriceVC.swift
+//  AddNewPrice2VC.swift
 //  SPOS
 //
-//  Created by شموع صلاح الدين on 11/10/21.
+//  Created by شموع صلاح الدين on 12/1/21.
 //
 
 import UIKit
 import SVProgressHUD
 
-/*
+
 protocol AddNewPriceProtocol {
     func addNewPrice(newPrice: String, indexPathRow: Int, newIndexPath: IndexPath?)
 }
 
 
-class AddNewPriceVC: UIViewController {
+class AddNewPrice2VC: UIViewController {
     
+    @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var priceTF: UITextField!
     
     var store_id = 0
@@ -23,16 +24,19 @@ class AddNewPriceVC: UIViewController {
     var type = 0
     var quantity = 1
     var posID = 0
-    
     var indexPathRow = 0
     var newIndexPath: IndexPath?
     var delegate: AddNewPriceProtocol?
-    
     var fromVarientHome = false
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        bottomView.layer.cornerRadius = 20
+        bottomView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        
     }
     
     @IBAction func submit(_ sender: UIButton) {
@@ -44,17 +48,31 @@ class AddNewPriceVC: UIViewController {
         
         if fromVarientHome {
             
-            self.delegate?.addNewPrice(newPrice: priceTF.text!, indexPathRow: indexPathRow, newIndexPath: newIndexPath)
-            self.navigationController?.popViewController(animated: true)
-        }else {
+            self.dismiss(animated: true) { [self] in
+                print("indexPathRow \(indexPathRow) ... \(newIndexPath)")
+                
+                self.delegate?.addNewPrice(newPrice: priceTF.text!, indexPathRow: indexPathRow, newIndexPath: newIndexPath)
+            }
+            
+        } else {
             submitPriceTOTicket(pos_id: self.posID, store_id: store_id, type_id: type_id, type: type, price: priceTF.text!, quantity: 1)
         }
         
     }
+    
+    @IBAction func submitCancel(_ sender: UIButton) {
+        
+        self.dismiss(animated: true) { [self] in
+            self.delegate?.addNewPrice(newPrice: "", indexPathRow: indexPathRow, newIndexPath: newIndexPath)
+        }
+        
+    }
+    
+    
 }
 
 
-extension AddNewPriceVC {
+extension AddNewPrice2VC {
     
     func submitPriceTOTicket(pos_id: Int, store_id: Int, type_id: Int, type: Int, price: String, quantity: Int) {
         
@@ -89,6 +107,4 @@ extension AddNewPriceVC {
         }
     }
     
-    
 }
-*/

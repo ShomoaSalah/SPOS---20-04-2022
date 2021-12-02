@@ -18,8 +18,6 @@ class TicketsFilterVC: BaseVC {
 
     @IBOutlet weak var submitBtn: UIButton!
     @IBOutlet weak var bottomView: UIView!
-    
-    
     @IBOutlet weak var employeeBtn: UIButton!
     @IBOutlet weak var timeBtn: UIButton!
     @IBOutlet weak var valueBtn: UIButton!

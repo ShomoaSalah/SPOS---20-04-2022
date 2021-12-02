@@ -21,8 +21,7 @@ class HomeVC: BaseVC {
     @IBOutlet weak var chargeLbl: UILabel!
     var lblBadg: UILabel!
     var ticketId = 0
-    // variant
-    // ...
+  
     
     var fromALlItesm = false
     var fromDiscount = false
@@ -552,7 +551,7 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
         if fromDiscount {
             
             let item = discountArray[indexPath.row]
-            openSpecificView(store_id: self.storeID, type_id: item.id ?? 0, type: 2, priceState: item.amountValue ?? "")
+            openSpecificView(store_id: self.storeID, type_id: item.id ?? 0, type: 2, priceState: item.amountValue ?? "", itemName: item.name ?? "")
             
         } else if fromALlItesm {
             
@@ -560,7 +559,7 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
             print("fromALlItesm 1")
             
 //            openSpecificView(store_id: self.storeID, type_id: item.id ?? 0, type: 1, priceState: item.priceState ?? "")
-            openSpecificViewNew(store_id: self.storeID, type_id:  item.id ?? 0, type: 1, priceState: item.priceState ?? "", showInterface: item.showInterface!)
+            openSpecificViewNew(store_id: self.storeID, type_id:  item.id ?? 0, type: 1, priceState: item.priceState ?? "", showInterface: item.showInterface!, itemName: item.name ?? "")
 
             
         } else if fromCategories {
@@ -568,7 +567,7 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
             let item = categorieArray[indexPath.row]
             
 //            openSpecificView(store_id: self.storeID, type_id: item.id ?? 0, type: 1, priceState: item.priceState ?? "")
-            openSpecificViewNew(store_id: self.storeID, type_id:  item.id ?? 0, type: 1, priceState: item.priceState ?? "", showInterface: item.showInterface!)
+            openSpecificViewNew(store_id: self.storeID, type_id:  item.id ?? 0, type: 1, priceState: item.priceState ?? "", showInterface: item.showInterface!, itemName: item.name ?? "")
         }else if fromSearch {
             
             let item = searchHomeArray[indexPath.row]
@@ -576,11 +575,11 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
             switch item.objectType {
             case "item":
 //                openSpecificViewNew(store_id: self.storeID, type_id:  item.id ?? 0, type: 1, priceState: item.priceState ?? "", showInterface: item.show)
-                openSpecificView(store_id: self.storeID, type_id: item.id ?? 0, type: 1, priceState: item.priceState ?? "")
+                openSpecificView(store_id: self.storeID, type_id: item.id ?? 0, type: 1, priceState: item.priceState ?? "", itemName: item.name ?? "")
             break
             
             case "discount":
-                openSpecificView(store_id: self.storeID, type_id: item.id ?? 0, type: 2, priceState: item.priceState ?? "")
+                openSpecificView(store_id: self.storeID, type_id: item.id ?? 0, type: 2, priceState: item.priceState ?? "", itemName: item.name ?? "")
                 break
             
             default:
@@ -592,20 +591,26 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     
-    func openSpecificView(store_id: Int, type_id: Int, type: Int, priceState: String){
+    func openSpecificView(store_id: Int, type_id: Int, type: Int, priceState: String, itemName: String){
         
         if priceState.isEmptyStr {
            print("priceState isEmptyStr \(priceState)")
             
             //Add Price View
-            let vc = UIStoryboard.init(name: "HomeDetailsSB", bundle: Bundle.main).instantiateViewController(withIdentifier: "AddNewPriceVC") as! AddNewPriceVC
+            let vc = UIStoryboard.init(name: "HomeDetailsSB", bundle: Bundle.main).instantiateViewController(withIdentifier: "AddNewPrice2VC") as! AddNewPrice2VC
            
             vc.store_id = store_id
             vc.type_id = type_id
             vc.type = type
-                
-            self.navigationItem.hideBackWord()
-            self.navigationController?.pushViewController(vc, animated: true)
+            vc.posID = posID
+            
+            vc.modalPresentationStyle = .overCurrentContext
+            vc.modalTransitionStyle = .crossDissolve
+            
+            self.present(vc, animated: true, completion: nil)
+            
+//            self.navigationItem.hideBackWord()
+//            self.navigationController?.pushViewController(vc, animated: true)
             
         }
         else {
@@ -619,6 +624,7 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
                 let vc = UIStoryboard.init(name: "HomeDetailsSB", bundle: Bundle.main).instantiateViewController(withIdentifier: "HomeItemDetailsV2VC") as! HomeItemDetailsV2VC
                 vc.itemId = type_id
                 vc.storeID = store_id
+                vc.titleName = itemName
                 
                 self.navigationItem.hideBackWord()
                 self.navigationController?.pushViewController(vc, animated: true)
@@ -637,22 +643,31 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     
-    func openSpecificViewNew(store_id: Int, type_id: Int, type: Int, priceState: String, showInterface: Bool) {
+    func openSpecificViewNew(store_id: Int, type_id: Int, type: Int, priceState: String, showInterface: Bool, itemName: String) {
         
         if priceState.isEmptyStr {
             //Add Price View
-            let vc = UIStoryboard.init(name: "HomeDetailsSB", bundle: Bundle.main).instantiateViewController(withIdentifier: "AddNewPriceVC") as! AddNewPriceVC
+            let vc = UIStoryboard.init(name: "HomeDetailsSB", bundle: Bundle.main).instantiateViewController(withIdentifier: "AddNewPrice2VC") as! AddNewPrice2VC
             vc.store_id = store_id
             vc.type_id = type_id
             vc.type = type
-            self.navigationItem.hideBackWord()
-            self.navigationController?.pushViewController(vc, animated: true)
+            vc.posID = posID
+            
+            vc.modalPresentationStyle = .overCurrentContext
+            vc.modalTransitionStyle = .crossDissolve
+            
+            self.present(vc, animated: true, completion: nil)
+            
+//            self.navigationItem.hideBackWord()
+//            self.navigationController?.pushViewController(vc, animated: true)
         }
         
         if showInterface {
             let vc = UIStoryboard.init(name: "HomeDetailsSB", bundle: Bundle.main).instantiateViewController(withIdentifier: "HomeItemDetailsV2VC") as! HomeItemDetailsV2VC
             vc.itemId = type_id
             vc.storeID = store_id
+            vc.titleName = itemName
+            
             self.navigationItem.hideBackWord()
             self.navigationController?.pushViewController(vc, animated: true)
         } else {
@@ -797,7 +812,7 @@ extension HomeVC {
                 
                 do{
                     
-                    let object = try JSONDecoder().decode(HomeOB.self, from: responesObject?.data as! Data)
+                    let object = try! JSONDecoder().decode(HomeOB.self, from: responesObject?.data as! Data)
                     
                     if currentPagee == 1{
                         discountArray.removeAll()
